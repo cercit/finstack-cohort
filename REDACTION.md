@@ -26,7 +26,7 @@ This repo comes from real working files, chat messages, screenshots and a screen
 
 ## The demo clip
 
-The full recording shows a real name, mobile number, PAN, a partly typed Aadhaar number, an Aadhaar OTP, the DigiLocker security PIN, a date of birth and a password-manager popup that listed an account number. The clip in `product/demo/` is about 2 minutes 25 seconds long, has no audio and no zoom effects, and was made like this:
+The full recording shows a real name, mobile number, PAN, a partly typed Aadhaar number, an Aadhaar OTP, the DigiLocker security PIN, a date of birth and a password-manager popup that listed an account number. The clip in `product/demo/` is about 2 minutes 25 seconds long, has no voice (only a calm background track made from code for this project, `tools/make_music.py`) and no zoom effects, and was made like this:
 
 - **Shown on purpose:** the author's own name (in the form fields and under each step title) and the OTP boxes and digits (the Step 1 code and the Aadhaar OTP). The author chose to show these.
 - **Hidden behind a frosted, see-through cover (heavy blur plus a light veil, strong enough that the text cannot be read):** the mobile number field on Step 1, the Aadhaar number boxes on DigiLocker, the partly shown registered mobile on the DigiLocker OTP page, the password-manager popup, the PAN field and the vehicle number field on Step 2. The covers are placed by finding each field's label on every frame, so they follow the field when the page moves.
