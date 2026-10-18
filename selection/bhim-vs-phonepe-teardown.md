@@ -1,6 +1,6 @@
 # BHIM vs PhonePe: the selection project
 
-As part of FinStack's candidate evaluation, I submitted a product teardown of two payment apps with a three-year roadmap for each. The original PDF is linked at the bottom of the page and shown below it. I was selected for the cohort after it.
+As part of FinStack's candidate evaluation, I submitted a product teardown of two payment apps with a three-year roadmap for each. The original PDF can be downloaded at the bottom of the page. I was selected for the cohort after it.
 
 **The idea in one paragraph.** Both apps run on the same UPI rails, and paying a shop takes the same four steps on each: scan, amount, confirm, Face ID. Yet I use BHIM for most payments, and the reason is not features. BHIM leaves me alone; PhonePe keeps alerting me. PhonePe shows too much, BHIM shows too little, and each app's ownership explains why.
 

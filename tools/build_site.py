@@ -136,8 +136,6 @@ def doc_page(src_rel, section, deck=""):
         extra = f'<a class="button button-secondary" href="production-launch-plan.pdf">Download the PDF {ARROW}</a>'
     back_text = section if section not in ("Launch", "Selection") else "Overview"
     back_href = rel(out_path, idx) if section not in ("Launch", "Selection") else rel(out_path, "index.html")
-    if section == "Selection":
-        body += '<h2>The original PDF</h2><div class="tw"><iframe src="bhim-vs-phonepe-teardown.pdf" title="Original submitted PDF" style="width:100%;height:900px;border:0"></iframe></div>'
     main = hero(back_href, back_text, kicker, title, deck, actions=extra) + f'<div class="wrap doc-wrap"><article class="doc">{body}</article></div>'
     write(out_path, shell(out_path, title, deck or title, main, section))
 
