@@ -1,5 +1,5 @@
 """Builds a small static website from this repo's files, in the same design as the author's own site
-(https://cercit.github.io/me/projects/cercit.html).
+(https://samsm.vercel.app/projects/cercit.html).
 Usage:  python tools/build_site.py          -> writes ./site/
 Preview: python -m http.server 8766 --bind 127.0.0.1 --directory site
 The design files are in tools/site_assets/. No trackers; the only script is the theme and menu script from that design."""
@@ -10,7 +10,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 OUT = ROOT / "site"
 ASSETS = ROOT / "tools" / "site_assets"
 md = MarkdownIt("commonmark").enable("table")
-ME = "https://cercit.github.io/me"
+ME = "https://samsm.vercel.app"
 
 NAV = [("Selection", "selection/index.html"), ("Learned", "learned/index.html"), ("Built", "built/index.html"), ("Tested", "tested/index.html"),
        ("Launch", "launch/index.html"), ("About", "about/index.html")]
