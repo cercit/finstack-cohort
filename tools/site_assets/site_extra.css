@@ -51,3 +51,7 @@
 .partner img{height:30px;width:auto}
 [data-theme=dark] .partner .img-light{display:none}
 [data-theme=light] .partner .img-dark{display:none}
+
+.tag{display:inline-block;font-size:12px;font-weight:700;line-height:1.5;padding:0 8px;border-radius:12px;border:1px solid currentColor;white-space:nowrap;vertical-align:1px;letter-spacing:.02em}
+[data-theme=dark] .tag-built{color:#7fd6a0}[data-theme=dark] .tag-planned{color:#8cc4ff}[data-theme=dark] .tag-assumption{color:#f5c26b}[data-theme=dark] .tag-test{color:#c3c7d4}
+[data-theme=light] .tag-built{color:#1e7a45}[data-theme=light] .tag-planned{color:#1a5fb4}[data-theme=light] .tag-assumption{color:#8a5600}[data-theme=light] .tag-test{color:#535b6c}

@@ -1,4 +1,4 @@
-# DealerFinance: sprint plan (Sprint 1, written afterwards from the work done)
+# DealerFinance: sprint plan
 
 **Status:** draft for review, written 18 Oct 2026.
 **Team 6:** Sameer S Mittimani and Aditya Sharan.

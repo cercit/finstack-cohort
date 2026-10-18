@@ -21,11 +21,10 @@ MAP = {   # repo path -> site path
     "cohort/fintech-apis.md": "learned/fintech-apis.html", "cohort/no-code-platform.md": "learned/no-code-platform.html",
     "cohort/consent-and-rules.md": "learned/consent-and-rules.html",
     "product/prd.md": "built/prd.html", "product/sprint-plan.md": "built/sprint-plan.html",
-    "product/prd-decisions-log.md": "built/decisions-log.html", "product/formulas/formulas.md": "built/formulas.html",
+    "product/prd-decisions-log.md": "built/decisions-log.html", "product/idea-and-market.md": "built/idea-and-market.html",
     "testing/failures-and-fixes.md": "tested/failures-and-fixes.html", "testing/live-demo-lessons.md": "tested/live-demo-lessons.html",
     "launch/production-launch-plan.md": "launch/index.html", "launch/production-launch-plan.pdf": "launch/production-launch-plan.pdf",
-    "product/journey/wireframe-as-built.html": "built/journey.html", "product/journey/pitch.html": "built/pitch.html",
-    "product/journey/overview.html": "built/overview.html",
+    "product/journey/wireframe-as-built.html": "built/wireframe.html",
     "README.md": "about/index.html", "REDACTION.md": "about/index.html", "LICENSE": "about/index.html",
 }
 
@@ -36,13 +35,11 @@ LEARNED = [("What I learned, mapped to what I used", "learned-to-used.md", "Each
            ("The fintech APIs", "cohort/fintech-apis.md", "Credit reports, PAN, Aadhaar, DigiLocker, vehicle lookup and statements: what goes in and out."),
            ("The no-code platform", "cohort/no-code-platform.md", "How it is put together, and nine rules for its logic variables."),
            ("Consent and rules", "cohort/consent-and-rules.md", "Consent, KYC and lender rules, and how they shaped the product.")]
-BUILT = [("Product requirements (PRD)", "product/prd.md", "Problem, users, scope, rules and risks, in the format taught in class."),
-         ("Sprint plan", "product/sprint-plan.md", "Epics, stories, tasks and gates, written from the work done."),
-         ("The six-step journey", "product/journey/wireframe-as-built.html", "Every screen with its fields, rules and test values."),
-         ("The pitch page", "product/journey/pitch.html", "The problem, the market and the flow used in the demo."),
-         ("Overview", "product/journey/overview.html", "A plain explanation of what the product is and how it works."),
-         ("Decisions log", "product/prd-decisions-log.md", "The first design decisions, F1 to F26."),
-         ("Formulas", "product/formulas/formulas.md", "The expressions behind price, loan, fit and commission (test values).")]
+BUILT = [("DealerFinance: product requirements document", "product/prd.md", "Problem, users, scope, rules and risks, in the format taught in class."),
+         ("Sprint plan", "product/sprint-plan.md", "Epics, stories, tasks and gates."),
+         ("Wireframe", "product/journey/wireframe-as-built.html", "Every screen with its fields, rules and test values."),
+         ("The idea, the market and the flow", "product/idea-and-market.md", "The problem, why it is unsolved, the market size and how the flow works."),
+         ("Decisions log", "product/prd-decisions-log.md", "The design decisions, and how the logic was built without a database.")]
 TESTED = [("Failures and fixes", "testing/failures-and-fixes.md", "What broke, why, the fix and the lesson, with open items marked."),
           ("Live-demo lessons", "testing/live-demo-lessons.md", "Customers new to credit, and the vehicle check with no exchange car.")]
 SECTIONS = {"Learned": ("learned/index.html", "cohort / notes"), "Built": ("built/index.html", "product / documents"),
@@ -108,8 +105,13 @@ def fix_links(body, src_rel, out_path):
     return re.sub(r'<a href="([^"]+)">(.*?)</a>', anchor, body, flags=re.S)
 
 
+TAGS = {"Built": "built", "Planned": "planned", "Assumption": "assumption", "Test value": "test"}
+
+
 def clean_body(body, src_rel, out_path):
     body = fix_links(body, src_rel, out_path)
+    for name, cls in TAGS.items():
+        body = body.replace(f"[{name}]", f'<span class="tag tag-{cls}">{name}</span>')
     return body.replace("<table>", '<div class="tw"><table>').replace("</table>", "</table></div>")
 
 
@@ -170,7 +172,7 @@ def home():
            f'<a class="text-link" href="{ME}/work.html">Back to all work <span aria-hidden="true">→</span></a></section>')
     h = hero(f"{ME}/work.html", "All work", "cohort / case study", "FinStack cohort", "What I learned, built and fixed in five days",
              "A fintech product management cohort in Bengaluru. We learned how lenders and no-code lending platforms work, then built, tested and fixed a loan journey for new-car buyers.",
-             f'<a class="button button-secondary" href="#section-2">What we built {ARROW}</a><a class="button button-secondary" href="https://github.com/cercit/finstack-cohort">View the record {ARROW}</a>')
+             f'<a class="button button-secondary" href="#section-2">What we built {ARROW}</a><a class="button button-secondary" href="https://github.com/cercit/finstack-cohort">Browse the files {ARROW}</a>')
     partner = (f'<div class="partner"><span>Cohort run by</span><img class="img-light" src="{a("assets/finstack-logo-light.svg")}" alt="FinStack" height="30">'
                f'<img class="img-dark" src="{a("assets/finstack-logo-dark.svg")}" alt="FinStack" height="30"></div>')
     h = h.replace("<h1>FinStack cohort</h1>", partner + "<h1>FinStack cohort</h1>", 1)
@@ -202,7 +204,7 @@ def main():
     clip = ROOT / "product/demo/dealerfinance-journey-masked.mp4"
     shutil.copy(clip, OUT / "assets/demo.mp4")
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", "98", "-i", str(clip), "-frames:v", "1", "-vf", "scale=1280:-1", "-q:v", "4", str(OUT / "assets/poster.jpg")], check=False)
-    for src in ("product/journey/wireframe-as-built.html", "product/journey/pitch.html", "product/journey/overview.html", "launch/production-launch-plan.pdf"):
+    for src in ("product/journey/wireframe-as-built.html", "launch/production-launch-plan.pdf"):
         (OUT / MAP[src]).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy(ROOT / src, OUT / MAP[src])
     for n, s, d in LEARNED:

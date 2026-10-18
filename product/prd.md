@@ -1,10 +1,12 @@
-# DealerFinance: product requirements document (PRD)
+# DealerFinance: product requirements document
 
 **Status:** draft for review, written 18 Oct 2026 from the work done in the FinStack cohort (9 to 13 Oct 2026).
 **Team 6:** Sameer S Mittimani and Aditya Sharan.
-**Format:** the execution-ready PRD template from Class 9, trimmed to the sections that apply. Evidence tags: **[Built]** works in the FinStack journey today; **[Planned]** designed, not built; **[Assumption]** our guess, not tested; **[Test value]** a demo number, not a lender's real term. No research is claimed beyond what the team saw and did.
+**Format:** the PRD template from Class 9, trimmed to the sections that apply.
 
-The earlier decisions log (F1 to F26) is kept in `prd-decisions-log.md`. That log was written for a bigger design. This PRD describes what was built and what comes next.
+**How to read the tags.** Class 9 taught that a PRD must separate what is known from what is guessed, so statements carry a small tag: **Built** means it works in the journey today; **Planned** means designed but not built; **Assumption** means our guess, not tested; **Test value** means a demo number, not a real lender term. No research is claimed beyond what the team saw and did.
+
+The [decisions log](prd-decisions-log.md) lists the design decisions F1 to F26 and what happened to each. It was written for a bigger design. This PRD describes what was built and what comes next.
 
 ---
 
@@ -181,11 +183,17 @@ Credit health Bad is not a fit everywhere. Chola is assumed to follow Bajaj's ru
 - Customer name shows under the step title. [Built]
 - To improve: labels say "you" while the executive is typing; show readable names for coded values.
 
-## 15. Analytics and measures
+## 15. North star metric and measures
+
+**North star metric: completed journeys.** A completed journey is a case that reaches the settlement step with a lender's decision recorded, counted per outlet per week. It captures what the cohort judges (a customer can finish with minimal typing) and what a dealer values (a decision at the counter).
+
+**Input metrics that move it:** the share of started cases that finish consent, identity, verification, a lender send and a lender decision; minutes from consent to decision; fields typed per case. Targets are set after a pilot baseline, not before.
+
+**Supporting measures**
 
 | Measure | Definition | Direction |
 |---|---|---|
-| Completion (primary) | Cases reaching Settlement ÷ cases started | Up |
+| Completion rate | Cases reaching Settlement ÷ cases started | Up |
 | Time to decision | Minutes from consent to lender status | Down |
 | Approval share | Approved ÷ sent | Up |
 | Reroute rate | Cases that needed more than one lender | Watch |
