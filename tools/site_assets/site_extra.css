@@ -1,0 +1,53 @@
+/* Extra styles for the cohort site: documents, tables, lists and the demo video.
+   Uses the colour variables from the author's own site stylesheet (style.css). */
+.doc-wrap{padding-top:10px;padding-bottom:80px}
+.doc{max-width:860px;margin:0 auto}
+.doc h1{display:none}
+.doc h2{font-size:34px;line-height:1.2;margin:56px 0 14px;padding-top:28px;border-top:1px solid var(--line)}
+.doc h2:first-child{margin-top:0;padding-top:0;border-top:0}
+.doc h3{font-size:22px;margin:34px 0 8px}
+.doc p,.doc li{font-size:18px;line-height:1.75;color:var(--ink)}
+.doc p{margin:14px 0}
+.doc ul,.doc ol{padding-left:1.3em;margin:14px 0}
+.doc li{margin:7px 0}
+.doc a{color:var(--green);text-decoration:underline;text-underline-offset:3px}
+.doc strong{font-weight:700}
+.doc code{font-family:ui-monospace,Consolas,monospace;font-size:.88em;background:var(--pale);border:1px solid var(--line);padding:1px 6px;border-radius:4px;overflow-wrap:anywhere}
+.doc pre{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px;overflow-x:auto;max-width:100%}
+.doc pre code{background:none;border:0;padding:0;overflow-wrap:normal;white-space:pre}
+.doc blockquote{border-left:3px solid var(--green);margin:22px 0;padding:2px 18px;color:var(--muted)}
+.doc blockquote p{color:var(--muted)}
+.doc hr{border:0;border-top:1px solid var(--line);margin:40px 0}
+.tw{overflow-x:auto;margin:22px 0;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+.doc table{border-collapse:collapse;min-width:540px;width:100%;font-size:16px}
+.doc th,.doc td{padding:10px 13px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line);line-height:1.55}
+.doc th{background:var(--pale);font-weight:700;white-space:nowrap}
+.doc td{overflow-wrap:anywhere}
+.doc tr:last-child td{border-bottom:0}
+.doc .strip{background:var(--pale);border:1px solid var(--line);border-left:3px solid var(--green);padding:14px 18px;border-radius:6px;margin:26px 0}
+.doc-list{display:grid;border-top:1px solid var(--line);margin-bottom:60px}
+.doc-item{display:grid;grid-template-columns:54px 1fr 28px;gap:12px;align-items:start;padding:22px 4px;border-bottom:1px solid var(--line)}
+.doc-item:hover{background:var(--pale)}
+.doc-item .num{font-family:'Newsreader',serif;font-size:26px;color:var(--green)}
+.doc-item b{display:block;font-size:22px;line-height:1.3}
+.doc-item small{display:block;font-size:17px;line-height:1.6;color:var(--muted);margin-top:4px}
+.doc-item .arr{font-size:22px;color:var(--green)}
+.browser-frame video{display:block;width:100%;height:auto;background:#000}
+.days{list-style:none;padding:0;margin:20px 0;border-left:1px solid var(--line)}
+.days li{position:relative;padding:0 0 16px 20px;font-size:18px;line-height:1.55}
+.days li:before{content:'';position:absolute;left:-4px;top:10px;width:7px;height:7px;border-radius:50%;background:var(--green)}
+.days time{display:inline-block;min-width:64px;color:var(--green);font-weight:700}
+.case-story .links{padding-left:0;list-style:none;margin:18px 0}
+.case-story .links li{margin:0;border-top:1px solid var(--line)}
+.case-story .links li:last-child{border-bottom:1px solid var(--line)}
+.case-story .links a{display:flex;justify-content:space-between;gap:16px;padding:14px 2px;font-size:18px;text-decoration:none}
+.case-story .links a:hover{color:var(--green)}
+.case-story .links small{display:block;color:var(--muted);font-size:15px}
+.case-story .chips{display:flex;flex-wrap:wrap;gap:8px;list-style:none;padding:0;margin:18px 0}
+.case-story .chips li{border:1px solid var(--line);border-radius:20px;padding:4px 13px;font-size:15px;background:var(--surface)}
+@media (max-width:600px){.doc h2{font-size:28px}.doc p,.doc li{font-size:17px}.doc-item{grid-template-columns:40px 1fr 20px}.doc-item b{font-size:19px}}
+
+.partner{display:flex;align-items:center;gap:14px;margin:20px 0 4px;color:var(--muted);font-size:15px}
+.partner img{height:30px;width:auto}
+[data-theme=dark] .partner .img-light{display:none}
+[data-theme=light] .partner .img-dark{display:none}

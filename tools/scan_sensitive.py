@@ -15,7 +15,7 @@ PATTERNS = {
 # That file is git-ignored on purpose, so the names never enter the repo.
 _names_file = pathlib.Path(__file__).with_name("names.local.txt")
 NAMES = [n.strip() for n in _names_file.read_text(encoding="utf8").splitlines() if n.strip()] if _names_file.exists() else []
-ALLOW_EMAILS = {"team@getfinstack.in"}
+ALLOW_EMAILS = {"team@getfinstack.in", "samsm@outlook.in"}   # the second is the author's public contact address
 TEXT = {".md", ".txt", ".html", ".py", ".json", ".csv", ".js", ".css"}
 
 def mask(s):
