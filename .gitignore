@@ -1,5 +1,6 @@
 # never commit these
 *.mp4
+!product/demo/*.mp4
 *.mov
 *.zip
 *.xlsx
