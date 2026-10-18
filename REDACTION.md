@@ -43,6 +43,6 @@ A script scanned the finished clip for leftover mobile digits, "code sent to" te
 2. The full git history was searched for names, PAN fragments and numbers: none found.
 3. Links between files were checked.
 
-## Known limit
+## Git history
 
-Commit metadata carries the author's email address. While the repo is private that is fine; it needs rewriting before the repo is ever made public.
+Before this repository was made public, its history was rewritten: commit author details now use GitHub's no-reply address, and an early draft of one page that showed the first digits of an ID number was corrected in every commit. The history was then searched again for names, ID patterns and numbers, and none were found.

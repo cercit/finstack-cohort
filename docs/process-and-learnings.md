@@ -27,7 +27,7 @@ Written 18 Oct 2026. It lets someone pick the work up later without the long con
 
 ## Rules we worked by
 
-1. The repo is **private first**. It becomes public only when the author says so. Making it public also needs the history rewritten (the commit email, and the old commit that shows the first six digits of an Aadhaar number), then a force-push.
+1. The repo was **private first** and became public only when the author said so (18 Oct 2026). Before that the history was rewritten (the commit email, and an old commit that showed the first digits of an ID number) and force-pushed.
 2. No mobile numbers, PAN, Aadhaar, emails, logins or other people's names in anything committed. Run the scanner every time.
 3. Ask before building more than was asked. A bare "ok" is not approval.
 4. FinStack's material is theirs: notes are in the author's own words, with no client figures. Their name and logo are shown only to identify the cohort.
@@ -57,8 +57,6 @@ Written 18 Oct 2026. It lets someone pick the work up later without the long con
 
 ## Open items
 
-- Publish: the author's explicit yes, the history rewrite, then copy the site into a `finstack/` folder of the `cercit.github.io` repo.
-- Tell FinStack before the notes and logo go public.
-- Ask the teammate before his name and link go public.
+- The site is published from its own repository (`cercit/finstack`), built with `python tools/build_site.py`. To update it, rebuild and copy `site/` there.
 - Fix the loan formula and the rejected path in the journey.
 - NTC: the lender list that accepts customers new to credit.

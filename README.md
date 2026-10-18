@@ -1,6 +1,6 @@
 # FinStack cohort: learning record and the DealerFinance project
 
-**Status:** private draft. Core notes, PRD, sprint plan, testing notes and launch plan are written; a few pieces are still being reviewed.
+**Status:** public. The notes, PRD, sprint plan, testing notes and launch plan are written. Open items are listed in `docs/process-and-learnings.md`.
 
 **Please read first:** lender names, rates, limits and thresholds here are invented test values, not any lender's real policy. Car prices are demo listings. See `LICENSE` and `REDACTION.md`.
 
