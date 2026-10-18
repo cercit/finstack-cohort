@@ -1,0 +1,1 @@
+"PAN Match " + ("100" if {#primary/custom-externalapi-enquiry_<id>/pan_number#}.strip() and {#primary/custom-externalapi-enquiry_<id>/pan_number#}.upper().strip() == {#primary/kyc-digilocker-<id>/pan_id_number#}.upper().strip() else "0") + "% from Digilocker"

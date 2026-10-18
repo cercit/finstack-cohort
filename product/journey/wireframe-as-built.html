@@ -1,0 +1,216 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DealerFinance Wireframe As Built</title>
+<style>
+:root{--ink:#222;--mute:#777;--line:#999;--soft:#eee;--bg:#fafafa;--new:#e3f1e6;--gap:#f6ead8;--warn:#fbe9e7}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font:14px/1.45 "Segoe UI",system-ui,sans-serif}
+.wrap{max-width:1100px;margin:0 auto;padding:24px 16px 60px}
+h1{margin:0;font-size:1.6rem}
+h2{margin:34px 0 6px;font-size:1.2rem;border-bottom:2px solid var(--ink);padding-bottom:4px}
+.sub{color:var(--mute);margin:4px 0 16px}
+.flow{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:12px 0}
+.step{border:2px solid var(--ink);border-radius:8px;padding:6px 10px;background:#fff;font-weight:600;font-size:.9rem}
+.step small{display:block;font-weight:400;color:var(--mute)}
+.step.ext{border-style:dashed;background:var(--soft)}
+.arrow{color:var(--mute)}
+.loop{border:2px dashed var(--line);background:var(--soft);border-radius:8px;padding:6px 10px;font-size:.85rem;margin:4px 0}
+.card{border:2px solid var(--ink);border-radius:10px;background:#fff;padding:12px 14px;margin:14px 0}
+.card.ext{border-style:dashed}
+.card h3{margin:0 0 2px;font-size:1.02rem}
+.card .st{color:var(--mute);font-size:.85rem;margin-bottom:8px}
+.chip{float:right;font-size:.75rem;border-radius:10px;padding:1px 9px;border:1px solid var(--line);background:var(--gap)}
+.chip.ok{background:var(--new)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 12px}
+.f{min-width:0}
+.f label{display:block;font-size:.78rem;color:var(--mute)}
+.f .box{border:1.5px solid var(--line);border-radius:6px;padding:5px 8px;background:#fff;min-height:30px;overflow-wrap:anywhere}
+.f.auto .box{background:var(--new)}
+.f.cond .box{border-style:dashed}
+.f .box.empty{color:#aaa}
+.otp{display:flex;gap:6px;margin:4px 0}
+.otp i{display:inline-block;width:30px;height:30px;border:1.5px solid var(--line);border-radius:6px;background:#fff}
+.btn{display:inline-block;margin-top:10px;border:2px solid var(--ink);border-radius:6px;padding:5px 14px;font-weight:600}
+.btn.grey{border-color:#bbb;color:#999}
+.nav{margin-top:10px;padding-top:8px;border-top:1px solid var(--soft);display:flex;gap:8px;font-size:.85rem}
+.nav span{border:1.5px solid var(--line);border-radius:6px;padding:2px 10px}
+.note{font-size:.85rem;color:#444;margin-top:8px}
+.note b{color:var(--ink)}
+.legend span{display:inline-block;padding:2px 8px;border-radius:5px;border:1px solid var(--line);margin:2px 6px 2px 0;font-size:.8rem}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:560px;background:#fff}
+th,td{border:1px solid var(--line);padding:5px 8px;text-align:left;vertical-align:top;font-size:.88rem}
+th{background:var(--soft)}
+td.n{background:var(--gap)}
+.check{border:2px solid #c0504d;background:var(--warn);border-radius:10px;padding:10px 14px;margin:14px 0}
+.check ol{margin:6px 0 0 18px;padding:0}
+.check li{margin:4px 0}
+@media(max-width:700px){.grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>DealerFinance: wireframe as built</h1>
+<p class="sub">The FinStack journey as it ran in the 13 Oct evening screen recording. One linear journey used by the customer or a dealer executive. Kia only. Lenders: sbi, hdfc, bajaj, chola. Name, phone, PAN, Aadhaar and vehicle number are masked. Header on every step: FinStack logo, "Customer_Flow", a language drop-down (English / Kannada) and a log-out icon. Each step ends with Previous and Continue buttons.</p>
+
+<div class="legend"><span style="background:var(--new)">Fills itself (formula or API)</span><span style="background:#fff">Typed by the customer or executive</span><span style="border-style:dashed">Appears only on a condition</span><span style="background:var(--soft);border-style:dashed">Outside FinStack (DigiLocker)</span></div>
+
+<h2>The journey</h2>
+<div class="flow">
+<div class="step">1 Enquiry<small>name, mobile, OTP</small></div><span class="arrow">&rarr;</span>
+<div class="step ext">DigiLocker<small>Aadhaar OTP, PAN details</small></div><span class="arrow">&rarr;</span>
+<div class="step">2 Verification<small>income, car, exchange</small></div><span class="arrow">&rarr;</span>
+<div class="step">3 Customer_Inputs<small>price, tax, loan</small></div><span class="arrow">&rarr;</span>
+<div class="step">4 Routing-1<small>score, LTV, pick lender</small></div><span class="arrow">&rarr;</span>
+<div class="step">5 Routing-2<small>lender status</small></div><span class="arrow">&rarr;</span>
+<div class="step">6 Settlement<small>trade advance, commission</small></div>
+</div>
+<div class="loop">Step 5 status <b>rejected</b> sends the case back to Step 4 to pick another lender. <b>approved</b> asks for the approved amount and goes on to Step 6.</div>
+<div class="loop">Every form shows a status chip: <b>Incomplete</b> (amber) until you submit, then <b>Verified</b> (green). The button then reads <b>Update form</b>, and Continue turns on.</div>
+
+<h2>Step 1: Enquiry</h2>
+<div class="card">
+<h3>Enquiry (ವಿಚಾರಣೆ)</h3><div class="st">Two stages on the same screen. The email field is gone</div>
+<div class="grid">
+<div class="f"><label>Customer Name *</label><div class="box">S. S. M. (masked)</div></div>
+<div class="f"><label>Mobile Number *</label><div class="box">94xxxxxx99</div></div>
+</div>
+<div class="f" style="margin-top:8px"><div class="box">&#9745; I agree to the terms and conditions *</div></div>
+<span class="btn">Send code &rarr;</span>
+<div class="f cond" style="margin-top:10px"><label>Enter the 6-digit code * (appears after Send code)</label>
+<div class="otp"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="note" style="margin:0">Code sent to 94xxxxxx99. Didn't get the code? Resend in a few seconds.</div></div>
+<span class="btn grey">Verify and continue &rarr;</span>
+<div class="note"><b>Rule:</b> mobile must match <code>^[6-9]\d{9}$</code>. The OTP goes to the customer's own phone, so consent is now confirmed on the customer's side. This closes the open OTP question.</div>
+</div>
+
+<h2>DigiLocker (outside FinStack)</h2>
+<div class="card ext">
+<h3>DigiLocker, powered by Decentro</h3><div class="st">Opens after Verify and continue. The customer does this on their own phone or screen</div>
+<div class="grid">
+<div class="f"><label>1. Enter your Aadhaar number</label><div class="box">xxxx xxxx xxxx (masked)</div></div>
+<div class="f"><label>2. Verify Aadhaar OTP (sent to the Aadhaar-linked mobile)</label><div class="box">6-digit code</div></div>
+</div>
+<span class="btn">Next</span> <span class="btn">Submit</span>
+<div class="note">Then "Redirecting back to Requester" with a <b>Continue</b> button, which returns to Step 2. DigiLocker gives back the PAN holder's name, PAN number and date of birth. These feed the name match, PAN match and age checks.</div>
+</div>
+
+<h2>Step 2: Verification</h2>
+<div class="card">
+<h3>varifcation (ಪರಿಶೀಲನೆ) <span class="chip">Incomplete</span></h3><div class="st">Customer name shows under the step title. Display name is still misspelled</div>
+<div class="grid">
+<div class="f auto"><label>PAN Number *</label><div class="box">BCTxxxxx4F (already filled)</div></div>
+<div class="f"><label>Employment *</label><div class="box">Salaried &times; &#9662;</div></div>
+<div class="f"><label>Monthly Income in Rs *</label><div class="box">2,50,000</div></div>
+<div class="f"><label>Monthly EMI Commitment in Rs. *</label><div class="box">40,000</div></div>
+<div class="f"><label>Downpayment Amount in Rs *</label><div class="box">5,00,000</div></div>
+<div class="f"><label>Income Proof Availability? *</label><div class="box">[ <b>Yes</b> | No ]</div></div>
+<div class="f"><label>Car Model *</label><div class="box">Kia model list &#9662; (e.g. Syros EV HTX ER 51.4 kWh)</div></div>
+<div class="f"><label>Do you want to exchange the car? *</label><div class="box">[ <b>Yes</b> | No ]</div></div>
+<div class="f cond"><label>Vehicle Number * (only when exchange is Yes)</label><div class="box">KA28Nxxxx (masked)</div></div>
+</div>
+<span class="btn">Submit form</span>
+<div class="nav"><span>&larr; Previous</span><span style="color:#aaa">Continue &rarr;</span></div>
+<div class="note"><b>Changed:</b> PAN comes in already filled. Vehicle Number is back, but shows only when exchange is Yes. The Car Model list now includes the EV variants. The button stays grey until required fields are filled, then reads Update form.</div>
+</div>
+
+<h2>Step 3: Customer_Inputs</h2>
+<div class="card">
+<h3>Customer_Inputs (ಗ್ರಾಹಕ_ಇನ್‌ಪುಟ್‌ಗಳು) <span class="chip">Incomplete</span></h3><div class="st">All seven fields fill themselves, including Exchange Value</div>
+<div class="grid">
+<div class="f auto"><label>Exshowroom Price (Rs) *</label><div class="box">17,99,900</div></div>
+<div class="f auto"><label>Road Tax (+others) *</label><div class="box">1,63,831</div></div>
+<div class="f auto"><label>Insurance (Approx) *</label><div class="box">71,996</div></div>
+<div class="f auto"><label>TCS *</label><div class="box">17,999</div></div>
+<div class="f auto"><label>On Road Price in Rs *</label><div class="box">20,35,727</div></div>
+<div class="f auto"><label>Loan Value (Rs.) *</label><div class="box">15,17,728.0</div></div>
+<div class="f auto"><label>Exchange Value *</label><div class="box">3,13,000</div></div>
+</div>
+<span class="btn">Submit form</span>
+<div class="note"><b>Rules:</b> insurance = 4% of ex-showroom. TCS = 1% when ex-showroom is above Rs 10 lakh. On-road leaves out TCS. Exchange value now fills itself from the vehicle valuation rule. The loan formula is on-road - TCS - down payment - exchange value.</div>
+</div>
+
+<h2>Step 4: Routing-1</h2>
+<div class="card">
+<h3>Routing-1 (ರೂಟಿಂಗ್-1) <span class="chip">Incomplete</span></h3><div class="st">Customer name shows in the header. Credit Health is no longer on this screen</div>
+<div class="grid">
+<div class="f auto"><label>Loan Requirement *</label><div class="box">15,17,728</div></div>
+<div class="f auto"><label>Credit Score *</label><div class="box">793</div></div>
+<div class="f auto"><label>LTV *</label><div class="box">84</div></div>
+<div class="f"><label>Select Financier to Send *</label><div class="box">bajaj &times; &#9662;</div></div>
+</div>
+<span class="btn">Submit form</span>
+<div class="nav"><span>&larr; Previous</span><span style="color:#aaa">Continue &rarr;</span></div>
+<div class="note"><b>Rules:</b> LTV = loan / ex-showroom (15,17,728 / 17,99,900 = 84). The credit score comes from the bureau. The lender list now shows small letters. <b>To fix:</b> leave out the lender that just rejected.</div>
+</div>
+
+<h2>Step 5: Routing-2</h2>
+<div class="card">
+<h3>Routing-2 (ರೂಟಿಂಗ್-2) <span class="chip">Incomplete</span></h3><div class="st">What the lender sees, plus the lender's answer</div>
+<div class="grid">
+<div class="f auto"><label>Customer Name *</label><div class="box">S. S. M. (masked)</div></div>
+<div class="f auto"><label>Vehicle *</label><div class="box">syros_ev_htx_er_51_4_kwh</div></div>
+<div class="f auto"><label>Loan Requirement *</label><div class="box">15,17,728</div></div>
+<div class="f auto"><label>Income p.a *</label><div class="box">25,20,000</div></div>
+<div class="f auto"><label>LTV *</label><div class="box">84.3</div></div>
+<div class="f auto"><label>Credit Score *</label><div class="box">793</div></div>
+<div class="f auto"><label>Sent to *</label><div class="box">bajaj</div></div>
+<div class="f"><label>Status *</label><div class="box">rejected / approved &#9662;</div></div>
+<div class="f cond"><label>Approved Finance Amount * (appears when status is approved)</label><div class="box">15,00,000</div></div>
+</div>
+<span class="btn">Submit form</span>
+<div class="nav"><span>&larr; Previous</span><span>Continue &rarr; (after approved)</span></div>
+<div class="note"><b>Rule:</b> rejected goes back to Step 4. approved shows the Approved Finance Amount field, then Step 6 uses that amount. <b>Seen in the recording:</b> submitting "rejected" gave the error "Missing key 'approved_finance_amount' in request payload". Approved worked and showed Verified.</div>
+</div>
+
+<h2>Step 6: Settlement</h2>
+<div class="card">
+<h3>Settlement (ನಿರ್ವಹಣೆ) <span class="chip ok">Verified</span></h3><div class="st">Last step</div>
+<div class="grid">
+<div class="f auto"><label>Customer Name *</label><div class="box">S. S. M. (masked)</div></div>
+<div class="f auto"><label>Additional Downpayment (if any) *</label><div class="box">17,728</div></div>
+<div class="f auto"><label>Banker/Financier *</label><div class="box">bajaj</div></div>
+<div class="f auto"><label>Trade Advance Limit *</label><div class="box">75,00,000</div></div>
+<div class="f auto"><label>Trade Advance Used *</label><div class="box">20,00,000</div></div>
+<div class="f auto"><label>Current Case Adjustment *</label><div class="box">15,00,000</div></div>
+<div class="f auto"><label>Balance Trade Advance *</label><div class="box">40,00,000</div></div>
+<div class="f auto"><label>Finance Commission *</label><div class="box">37,500</div></div>
+</div>
+<span class="btn">Update form</span>
+<div class="nav"><span>&larr; Previous</span><span>Continue &rarr;</span></div>
+<div class="note"><b>Rules:</b> additional down payment = loan asked - approved amount (15,17,728 - 15,00,000 = 17,728). Balance = limit - used - this case (75,00,000 - 20,00,000 - 15,00,000 = 40,00,000). Commission = bajaj 2.5% of 15,00,000 = 37,500. Other lenders: sbi 1.4%, hdfc 1.8%, chola 3%. "Used so far" is a fixed demo value because there is no database.</div>
+</div>
+
+<h2>To check from the recording</h2>
+<div class="check"><b>Five things I noticed:</b>
+<ol>
+<li><b>Loan ignores the exchange value.</b> Step 3 shows exchange value 3,13,000, but the loan is 15,17,728. That equals on-road - TCS - down payment (20,35,727 - 17,999 - 5,00,000) with no exchange taken off. With it taken off the loan would be 12,04,728. The loan may have been worked out before the exchange value filled in.</li>
+<li><b>Rejected gives an error.</b> "Missing key 'approved_finance_amount'". The field only exists on the approved path. Give it a default of 0 so a rejection can go through.</li>
+<li><b>Income p.a is net of EMI.</b> 25,20,000 = (2,50,000 - 40,000) x 12. A plain yearly income would be 30,00,000. Rename the label if that is intended.</li>
+<li><b>Credit Health is missing</b> from Steps 4 and 5. It is still worked out, but the executive can't see it.</li>
+<li><b>Vehicle on Step 5</b> still shows the raw key, not the car's readable name.</li>
+</ol></div>
+
+<h2>What changed from the 11 Oct wireframe</h2>
+<div class="tw"><table>
+<tr><th>11 Oct design</th><th>As built (13 Oct evening)</th></tr>
+<tr><td>8 steps; separate dealer and customer screens</td><td>6 linear steps plus a DigiLocker stage, one journey for customer or executive</td></tr>
+<tr><td>OTP consent on enquiry</td><td>Built: Send code, then a 6-digit code to the customer's phone</td></tr>
+<tr><td>DigiLocker KYC on the customer's phone</td><td>Built: Aadhaar OTP through DigiLocker (Decentro), then back to Step 2</td></tr>
+<tr><td>PAN typed in</td><td>PAN arrives already filled; name, PAN and date of birth checks use DigiLocker data</td></tr>
+<tr><td>Match shown as likely / possible / not a fit with rates</td><td>Score, LTV and a lender pick on Step 4; the fit rating runs behind the scenes (no rates shown)</td></tr>
+<tr><td>Reroute and Next buttons</td><td>One Submit form, then Update form; the status field decides the route</td></tr>
+<tr><td>Commission ledger as a back-office screen</td><td>Trade advance and commission as the last step</td></tr>
+<tr><td>Any car</td><td>Kia only (petrol, diesel and EV variants)</td></tr>
+<tr><td class="n">Bank statement, case tracker, all-leads</td><td class="n">Not built</td></tr>
+<tr><td class="n">Back office: review queue, lender portal, commission ledger, dealer settings, principal dashboard</td><td class="n">Not built. FinStack's own listing page stands in for "My cases"</td></tr>
+</table></div>
+
+<h2>Waiting on FinStack setup</h2>
+<p>Sending the case to the financier (the status is still picked by hand), the "My cases" listing page, and the live bureau and asset connections for other cases.</p>
+</div>
+</body>
+</html>

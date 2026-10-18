@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DealerFinance Pitch</title>
+<style>
+:root { --ink:#14202b; --muted:#55646f; --line:#d9e1e8; --bg:#f3f6f9; --card:#fff; --brand:#123b50; --brand2:#1f6f8b; --accent:#2563eb; --soft:#eaf2ff;
+  --ok:#157347; --okbg:#e3f4ea; --warn:#8a5a00; --warnbg:#fff1d6; --bad:#a12a2a; --badbg:#fbe3e3; }
+* { box-sizing:border-box; } html { scroll-behavior:smooth; }
+body { margin:0; background:var(--bg); color:var(--ink); font:19px/1.6 system-ui,"Segoe UI",Roboto,Arial,sans-serif; }
+a { color:var(--accent); } .wrap { max-width:1120px; margin:0 auto; padding:0 24px; }
+nav.top { position:sticky; top:0; z-index:5; background:rgba(255,255,255,.95); backdrop-filter:blur(6px); border-bottom:1px solid var(--line); }
+nav.top .wrap { display:flex; gap:6px; align-items:center; overflow-x:auto; padding-top:10px; padding-bottom:10px; }
+nav.top b { color:var(--brand); margin-right:14px; white-space:nowrap; }
+nav.top a { color:var(--muted); text-decoration:none; padding:5px 13px; border-radius:999px; font-size:16px; white-space:nowrap; }
+nav.top a:hover { background:var(--soft); color:var(--accent); }
+header.hero { background:linear-gradient(150deg,var(--brand),var(--brand2)); color:#fff; padding:80px 0 70px; }
+.hero .tag { display:inline-block; background:rgba(255,255,255,.16); border-radius:999px; padding:4px 16px; font-size:16px; margin-bottom:18px; }
+.hero h1 { font-size:clamp(38px,6vw,64px); line-height:1.08; margin:0 0 18px; }
+.hero p { font-size:clamp(20px,2.6vw,27px); max-width:840px; margin:0 0 10px; opacity:.96; }
+section { padding:62px 0 8px; } h2 { font-size:clamp(28px,4vw,38px); color:var(--brand); margin:0 0 8px; }
+.kicker { color:var(--muted); margin:0 0 26px; max-width:820px; }
+.cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:18px; }
+.card { background:var(--card); border:1px solid var(--line); border-radius:16px; padding:22px 24px; }
+.card h3 { margin:0 0 6px; font-size:21px; color:var(--brand); } .card p { margin:0; }
+.lbl { font-size:14px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--brand2); margin-bottom:4px; }
+.problem { background:var(--card); border-left:7px solid var(--bad); border-radius:14px; padding:26px 30px; font-size:23px; border:1px solid var(--line); border-left-width:7px; }
+.leak { display:grid; grid-template-columns:1fr auto 1fr auto 1fr; gap:10px; align-items:stretch; margin:8px 0 22px; }
+.leak .box { background:#fff; border:2px solid var(--brand); border-radius:14px; padding:16px 18px; }
+.leak .box b { display:block; color:var(--brand); font-size:20px; }
+.leak .gap { display:flex; flex-direction:column; justify-content:center; align-items:center; color:var(--bad); font-weight:700; font-size:15px; text-align:center; min-width:96px; }
+.leak .gap i { font-style:normal; font-size:26px; }
+.pill { display:inline-block; padding:2px 11px; border-radius:999px; font-size:14px; font-weight:700; }
+.pill.a { background:var(--warnbg); color:var(--warn); } .pill.g { background:var(--okbg); color:var(--ok); } .pill.x { background:#eceff2; color:#4a5662; }
+table { min-width:640px; width:100%; border-collapse:collapse; background:#fff; border:1px solid var(--line); border-radius:14px; overflow:hidden; font-size:17px; }
+th,td { text-align:left; padding:12px 14px; border-bottom:1px solid var(--line); vertical-align:top; }
+th { background:#f6f8fa; color:var(--brand); font-size:15px; } tr:last-child td { border-bottom:0; }
+.tw { overflow-x:auto; border-radius:14px; }
+.tam { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-bottom:22px; }
+.tam .c { border-radius:18px; padding:24px; color:#fff; } .tam .c b { display:block; font-size:clamp(28px,4vw,42px); line-height:1.15; margin:6px 0; }
+.tam .t { background:var(--brand); } .tam .s { background:var(--brand2); } .tam .o { background:#2c8c7a; }
+.tam small { opacity:.92; font-size:16px; display:block; }
+.calc { background:var(--soft); border:1px solid #bcd3fb; border-radius:14px; padding:16px 20px; margin:0 0 20px; }
+.calc input { font:inherit; width:130px; padding:6px 10px; border:1px solid #9db4d6; border-radius:8px; }
+.legend { display:flex; gap:22px; flex-wrap:wrap; margin:0 0 14px; font-size:17px; }
+.legend i { display:inline-block; width:22px; height:16px; border-radius:4px; margin-right:8px; vertical-align:-2px; border:2px solid; }
+.diagram { background:#fff; border:1px solid var(--line); border-radius:16px; padding:18px 16px 8px; } .diagram svg { width:100%; height:auto; display:block; }
+.mobileflow { display:none; } .strip { display:flex; flex-wrap:wrap; gap:10px; align-items:center; margin:18px 0; }
+.strip span { background:#fff; border:2px solid var(--brand); border-radius:12px; padding:8px 14px; font-weight:600; } .strip em { color:var(--muted); font-style:normal; }
+.callout { background:var(--soft); border:1px solid #bcd3fb; border-radius:16px; padding:22px 26px; font-size:21px; margin-top:20px; }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:20px; } ul.t { margin:8px 0 0; padding-left:22px; } ul.t li { margin:6px 0; }
+.q { text-align:center; padding:70px 0 40px; } .q h2 { font-size:clamp(34px,5vw,54px); }
+footer { padding:30px 0 60px; color:var(--muted); font-size:15.5px; } footer ul { padding-left:20px; }
+@media (max-width:900px) { .tam,.two { grid-template-columns:1fr; } .leak { grid-template-columns:1fr; } .leak .gap { flex-direction:row; gap:8px; padding:4px 0; }
+  .diagram { display:none; } .mobileflow { display:block; } th,td { padding:9px 8px; font-size:15px; } }
+</style></head><body>
+
+<nav class="top"><div class="wrap"><b>DealerFinance</b>
+<a href="#problem">Problem</a><a href="#why">Why</a><a href="#market">Market</a><a href="#scale">Scalable</a><a href="#flow">Flow</a><a href="#next">What we will do</a><a href="#sources">Sources</a></div></nav>
+
+<header class="hero"><div class="wrap">
+<span class="tag">FinStack FinTech PM Hackathon · Bengaluru</span>
+<h1>DealerFinance</h1>
+<p>The buyer just enquires about a car. In the background, we have already worked out which lender will say yes.</p>
+<p style="font-size:19px;opacity:.85">Lender matching, sending and commission tracking for dealers, built on FinStack.</p>
+</div></header>
+
+<main class="wrap">
+
+<section id="problem"><h2>Problem statement</h2>
+<p class="kicker">Who feels it: the Dealer Principal, the finance coordinator, the customer and the accounts team.</p>
+<div class="problem">New-car dealers with tie-ups to several banks and NBFCs have no quick way to know which financier will approve a customer. So they guess, rejected cases bounce from lender to lender, customers wait or walk away, and the dealer's commission is chased on paper.</div>
+</section>
+
+<section id="why"><h2>Why it is not solved today</h2>
+<p class="kicker">There is no one place that holds the whole case. The pieces sit in three different systems, and cases and money leak in the gaps between them.</p>
+<div class="leak">
+ <div class="box"><b>CRM</b>Leads and follow-ups sit here, with no idea which lender will approve.</div>
+ <div class="gap"><i>&#10230;</i>Lead lost</div>
+ <div class="box"><b>Lender calls and portals</b>The finance coordinator re-sends files and chases status by phone.</div>
+ <div class="gap"><i>&#10230;</i>Status lost</div>
+ <div class="box"><b>Accounts</b>Commission, GST and TDS are tracked on paper or in a sheet.</div>
+</div>
+<div class="cards">
+ <div class="card"><div class="lbl">Between CRM and lender</div><p>The customer's details are typed again for each lender. Some customers go cold while they wait.</p></div>
+ <div class="card"><div class="lbl">Between lender and dealer</div><p>A rejection arrives late, and the case starts again with another lender.</p></div>
+ <div class="card"><div class="lbl">Between lender and accounts</div><p>Short-paid or forgotten commission is found weeks later, if at all.</p></div>
+</div></section>
+
+<section id="market"><h2>Market size</h2>
+<p class="kicker">The pool is the finance commission that lenders pay on vehicle and home loans each year. Public numbers where they exist, and clearly marked assumptions where they do not.</p>
+<div class="tam">
+ <div class="c t"><div>TAM · all four loan lines</div><b>Rs 9,130 to 16,905 crore</b><small>a year. Base case about Rs 11,900 crore</small></div>
+ <div class="c s"><div>SAM · new-car finance through dealers</div><b>about Rs 4,520 crore</b><small>a year, where we start</small></div>
+ <div class="c o"><div>SOM · Bengaluru, six brands</div><b id="som">Rs 2.1 crore</b><small>a year in software fees from 178 outlets</small></div>
+</div>
+<div class="calc"><b>How SOM is worked out:</b> 178 Bengaluru outlets &times; fee &times; 12 months. Fee per outlet per month (assumption, change it): Rs <input id="fee" type="number" value="10000" min="0" step="500"> &nbsp;&rarr;&nbsp; <b id="somtext">Rs 2.1 crore</b> a year.<br><span style="color:var(--muted)">For scale only: 1,000 outlets at the same fee would be <b id="per1000">Rs 12 crore</b> a year.</span></div>
+<div class="tw"><table>
+ <tr><th>Line</th><th>Units a year</th><th>On loan</th><th>Average loan</th><th>Commission</th><th>Pool a year</th></tr>
+ <tr><td><b>New car</b></td><td>47.05 lakh (FADA FY26)</td><td>80%</td><td>Rs 8 lakh <span class="pill a">assumed</span></td><td>1.5%</td><td><b>Rs 4,517 crore</b></td></tr>
+ <tr><td><b>Used car</b></td><td>about 60 lakh (Crisil)</td><td>25% to 52%</td><td>Rs 4 lakh <span class="pill a">assumed</span></td><td>1.5% <span class="pill a">assumed</span></td><td><b>Rs 900 to 1,872 crore</b></td></tr>
+ <tr><td><b>Two-wheeler</b></td><td>2.14 crore (FADA FY26)</td><td>75%</td><td>Rs 60,000 <span class="pill a">assumed</span></td><td>1.5% <span class="pill a">assumed</span></td><td><b>Rs 1,446 crore</b></td></tr>
+ <tr><td><b>Housing loan</b></td><td>Rs 9.07 lakh crore disbursed (FY24)</td><td>n/a</td><td>n/a</td><td>0.25% to 1%</td><td><b>Rs 2,268 to 9,070 crore</b></td></tr>
+</table></div>
+<p class="kicker" style="margin-top:14px;font-size:16px">Commission of 1.5% follows one bank's published dealer payout of 1.45% on car loans. Average loan sizes and the used-car, two-wheeler commission are our assumptions, so treat the totals as an order of magnitude. Sources are listed at the bottom.</p>
+</section>
+
+<section id="scale"><h2>Scalable: the same engine, different lenders and rules</h2>
+<p class="kicker">Some options and requirements will change from one line to the next. The underlying concept stays the same.</p>
+<div class="cards">
+ <div class="card"><h3>New car</h3><p>What we built. Dealer price lists and road tax drive the loan amount.</p></div>
+ <div class="card"><h3>Used car</h3><p>Same flow. Our resale estimate (brand, engine size, year) sets the car's value, and the exchange value for a trade-in.</p></div>
+ <div class="card"><h3>Two-wheeler</h3><p>Smaller loans and higher volume. Faster rules, lighter checks.</p></div>
+ <div class="card"><h3>Housing loan</h3><p>Larger loans and property papers. More checks, lower commission rate.</p></div>
+ <div class="card"><h3>Any commission business</h3><p>Anywhere a seller refers a customer to a lender and is paid when the loan is disbursed.</p></div>
+</div>
+<div class="callout"><b>What stays the same:</b> enquiry and consent &rarr; credit check &rarr; match to lenders &rarr; send &rarr; follow the decision &rarr; commission. <b>What changes:</b> the lender rules, the price or valuation tables and the commission rates.</div>
+</section>
+
+<section id="flow"><h2>The flow</h2>
+<p class="kicker">The full design has two menus: one for the sales team or the customer, and one for the finance coordinator or accounts. We did not have a database or a lending system in the hackathon, so we built a lean version: one linear journey that the customer or a dealer executive fills. The colours show what that means for each stage.</p>
+<div class="legend"><span><i style="background:#e3f4ea;border-color:#157347"></i>Built as designed</span><span><i style="background:#fff1d6;border-color:#b7791f"></i>Built in a simpler form because access was limited</span><span><i style="background:#f1f3f5;border-color:#7b8794;border-style:dashed"></i>In the full design, not built</span></div>
+<div class="diagram"><svg viewBox="0 0 1100 1235" role="img" aria-label="Full DealerFinance flow with built, simplified and not built stages" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#123b50"/></marker><marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#a12a2a"/></marker></defs><style>.t{font:700 17px system-ui,Segoe UI,Arial,sans-serif;fill:#14202b}.s{font:15px system-ui,Segoe UI,Arial,sans-serif;fill:#3c4b57}.h{font:700 16px system-ui,Segoe UI,Arial,sans-serif}.lb{font:700 14px system-ui,Segoe UI,Arial,sans-serif;fill:#14202b}.ar{fill:none;stroke:#123b50;stroke-width:2.4}.ar.red{stroke:#a12a2a;stroke-dasharray:7 5}.ar.grey{stroke:#7b8794;stroke-dasharray:7 5}</style><rect x="20" y="20" width="360" height="1205" fill="#eef7f1" stroke="#c9d4de"/><text x="200" y="50" text-anchor="middle" class="h" fill="#157347">Front menu: sales executive or customer</text><rect x="380" y="20" width="360" height="1205" fill="#eef3ff" stroke="#c9d4de"/><text x="560" y="50" text-anchor="middle" class="h" fill="#1d4ed8">Back menu: finance coordinator or accounts</text><rect x="740" y="20" width="360" height="1205" fill="#fff7e6" stroke="#c9d4de"/><text x="920" y="50" text-anchor="middle" class="h" fill="#8a5a00">Lender (outside)</text><path d="M200 198 V227" class="ar" marker-end="url(#ah)"/><path d="M200 323 V352" class="ar" marker-end="url(#ah)"/><path d="M200 448 V477" class="ar" marker-end="url(#ah)"/><path d="M200 573 V602" class="ar" marker-end="url(#ah)"/><path d="M200 698 V727" class="ar" marker-end="url(#ah)"/><path d="M355 650 H405" class="ar grey" marker-end="url(#ah)"/><path d="M560 698 V753 H355" class="ar grey" marker-end="url(#ah)"/><path d="M200 823 V900 H765" class="ar" marker-end="url(#ah)"/><path d="M920 852 V797 H355" class="ar red" marker-end="url(#ahr)"/><text x="860" y="789" class="lb" text-anchor="middle">rejected: back to step 6</text><path d="M920 948 V1025 H715" class="ar" marker-end="url(#ah)"/><text x="832" y="1017" class="lb" text-anchor="middle">approved</text><path d="M560 1073 V1102" class="ar" marker-end="url(#ah)"/><rect x="45" y="102" width="310" height="96" rx="12" fill="#e3f4ea" stroke="#157347" stroke-width="2.2"/><text x="200" y="130" text-anchor="middle" class="t">1. Enquiry and consent</text><text x="200" y="154" text-anchor="middle" class="s">Terms tick, then a code</text><text x="200" y="174" text-anchor="middle" class="s">to the customer&#x27;s phone</text><rect x="45" y="227" width="310" height="96" rx="12" fill="#e3f4ea" stroke="#157347" stroke-width="2.2"/><text x="200" y="255" text-anchor="middle" class="t">2. Credit check</text><text x="200" y="279" text-anchor="middle" class="s">Score and health from</text><text x="200" y="299" text-anchor="middle" class="s">the bureau API</text><rect x="45" y="352" width="310" height="96" rx="12" fill="#e3f4ea" stroke="#157347" stroke-width="2.2"/><text x="200" y="380" text-anchor="middle" class="t">3. KYC</text><text x="200" y="404" text-anchor="middle" class="s">DigiLocker: Aadhaar OTP,</text><text x="200" y="424" text-anchor="middle" class="s">PAN, name, birth date</text><rect x="45" y="477" width="310" height="96" rx="12" fill="#fff1d6" stroke="#b7791f" stroke-width="2.2"/><text x="200" y="505" text-anchor="middle" class="t">4. Income and EMIs</text><text x="200" y="529" text-anchor="middle" class="s">Declared by the customer.</text><text x="200" y="549" text-anchor="middle" class="s">No bank statement</text><rect x="45" y="602" width="310" height="96" rx="12" fill="#e3f4ea" stroke="#157347" stroke-width="2.2"/><text x="200" y="630" text-anchor="middle" class="t">5. Match to lenders</text><text x="200" y="654" text-anchor="middle" class="s">Rules on score, health,</text><text x="200" y="674" text-anchor="middle" class="s">loan and EMI burden</text><rect x="405" y="602" width="310" height="96" rx="12" fill="#f1f3f5" stroke="#7b8794" stroke-width="2.2" stroke-dasharray="7 5"/><text x="560" y="630" text-anchor="middle" class="t">Review queue</text><text x="560" y="654" text-anchor="middle" class="s">Edge cases to a person.</text><text x="560" y="674" text-anchor="middle" class="s">Needs the back office</text><rect x="45" y="727" width="310" height="96" rx="12" fill="#fff1d6" stroke="#b7791f" stroke-width="2.2"/><text x="200" y="755" text-anchor="middle" class="t">6. Pick and send</text><text x="200" y="779" text-anchor="middle" class="s">One lender, chosen by</text><text x="200" y="799" text-anchor="middle" class="s">the executive</text><rect x="765" y="852" width="310" height="96" rx="12" fill="#fff1d6" stroke="#b7791f" stroke-width="2.2"/><text x="920" y="880" text-anchor="middle" class="t">7. Lender decides</text><text x="920" y="904" text-anchor="middle" class="s">approved or rejected only,</text><text x="920" y="924" text-anchor="middle" class="s">set by hand</text><rect x="405" y="977" width="310" height="96" rx="12" fill="#fff1d6" stroke="#b7791f" stroke-width="2.2"/><text x="560" y="1005" text-anchor="middle" class="t">8. Commission, trade advance</text><text x="560" y="1029" text-anchor="middle" class="s">Commission % and demo</text><text x="560" y="1049" text-anchor="middle" class="s">limits. No running balance</text><rect x="405" y="1102" width="310" height="96" rx="12" fill="#f1f3f5" stroke="#7b8794" stroke-width="2.2" stroke-dasharray="7 5"/><text x="560" y="1130" text-anchor="middle" class="t">9. Dashboard, My cases</text><text x="560" y="1154" text-anchor="middle" class="s">Needs a database or the</text><text x="560" y="1174" text-anchor="middle" class="s">listing page (pending)</text></svg></div>
+<div class="mobileflow">
+ <div class="cards">
+  <div class="card"><span class="pill g">built</span> <b>1. Enquiry and consent</b><br>Terms tick, then a 6-digit code to the customer's phone.</div>
+  <div class="card"><span class="pill g">built</span> <b>2. Credit check</b><br>Score and health from the bureau API.</div>
+  <div class="card"><span class="pill g">built</span> <b>3. KYC</b><br>DigiLocker with Aadhaar OTP gives PAN, name and birth date.</div>
+  <div class="card"><span class="pill a">simpler</span> <b>4. Income and EMIs</b><br>Declared. No bank statement.</div>
+  <div class="card"><span class="pill g">built</span> <b>5. Match to lenders</b><br>Rules on score, health, loan and EMI burden.</div>
+  <div class="card"><span class="pill x">not built</span> <b>Review queue</b><br>Needs the back office.</div>
+  <div class="card"><span class="pill a">simpler</span> <b>6. Pick and send</b><br>One lender, chosen by the executive.</div>
+  <div class="card"><span class="pill a">simpler</span> <b>7. Lender decides</b><br>approved or rejected. Rejected goes back to step 6.</div>
+  <div class="card"><span class="pill a">simpler</span> <b>8. Commission, trade advance</b><br>Demo limits, no running balance.</div>
+  <div class="card"><span class="pill x">not built</span> <b>9. Dashboard, My cases</b><br>Needs a database or the listing page.</div>
+ </div></div>
+<h3 style="margin:26px 0 4px;color:var(--brand)">What the hackathon build does: 6 steps and DigiLocker</h3>
+<div class="strip"><span>1 Enquiry, OTP</span><em>&rarr;</em><span>DigiLocker</span><em>&rarr;</em><span>2 Verification</span><em>&rarr;</em><span>3 Price, tax, loan</span><em>&rarr;</em><span>4 Pick financier</span><em>&rarr;</em><span>5 Lender status</span><em>&rarr;</em><span>6 Settlement</span></div>
+<p class="kicker" style="font-size:17px">Rejected at step 5 sends the executive back to step 4. Approved moves on to settlement: trade advance, balance and commission.</p>
+</section>
+
+<section id="next"><h2>What we will do</h2>
+<div class="two">
+ <div class="card"><h3>Built in the hackathon</h3><ul class="t">
+  <li>One linear journey, used by the customer or a dealer executive</li>
+  <li>Consent by OTP to the customer's phone, then DigiLocker for PAN, name and date of birth</li>
+  <li>Price, road tax, insurance, TCS, on-road price, exchange value and loan, worked out for the chosen car</li>
+  <li>Credit score and credit health from the bureau, and lender rules on top</li>
+  <li>Trade advance limit, balance and commission for four lenders: sbi, hdfc, bajaj and chola</li>
+  <li>Kia cars for the demo. More brands use the same lookup</li></ul></div>
+ <div class="card"><h3>Next, with database and lending-system access</h3><ul class="t">
+  <li>Two menus: sales or customer, and finance coordinator or accounts</li>
+  <li>A real review queue, dashboards and a commission ledger with GST and TDS</li>
+  <li>Live trade advance balance and lender status from the lenders</li>
+  <li>Bank statement analysis and Account Aggregator</li>
+  <li>Used-car valuation, then two-wheeler and housing loans</li></ul></div>
+</div></section>
+
+<section class="q"><h2>Questions?</h2><p class="kicker" style="margin:0 auto">Thank you.</p></section>
+
+</main>
+
+<footer id="sources"><div class="wrap"><b>Sources and assumptions</b>
+<ul><li><a href="https://www.outlookbusiness.com/industry/auto-retail-sales-up-133-pc-at-29671064-units-in-fy26-fada" target="_blank" rel="noopener">Auto retail FY26: passenger vehicles 47,05,056 units</a></li><li><a href="https://www.wealthy.in/invest/news/market/1684268" target="_blank" rel="noopener">Two-wheeler retail FY26: 2,14,20,386 units</a></li><li><a href="https://www.businesstoday.in/auto/story/nearly-80-cars-bought-on-loans-govt-rules-out-parking-proof-rule-523721-2026-04-02" target="_blank" rel="noopener">About 80% of four-wheelers registered in 2025 were bought on loan</a></li><li><a href="https://integraliq.crisil.com/content/crisilratings/en/home/newsroom/press-releases/2025/07/used-car-volume-to-grow-8-10percent-over-twice-as-fast-as-new-one.html" target="_blank" rel="noopener">Used cars: about 6 million units in FY26 (Crisil)</a></li><li><a href="https://www.storyboard18.com/brand-makers/tier-2-india-accounts-for-62-of-used-car-demand-cars24-report-90715.htm" target="_blank" rel="noopener">Used-car buyers on loan: 52% in 2025 (Cars24 report)</a></li><li><a href="https://www.business-standard.com/industry/auto/demand-for-3-5-years-old-used-cars-outpaces-supply-drives-prices-north-124052301254_1.html" target="_blank" rel="noopener">Used-car sales financed: 25% (Business Standard, 2024)</a></li><li><a href="https://www.autocarindia.com/industry-amp/two-wheeler-industry-to-surpass-212-crore-unit-sales-by-fy25-says-bajaj8217s-rakesh-sharma-432269" target="_blank" rel="noopener">About 75% of two-wheelers financed (Bajaj Auto)</a></li><li><a href="https://www.business-standard.com/finance/news/india-s-housing-finance-struggles-with-regional-disparities-warns-nhb-125031201033_1.html" target="_blank" rel="noopener">Housing loan disbursements FY24: Rs 9.07 lakh crore (NHB, reported)</a></li><li><a href="https://easyhomefinance.in/knowledge-hub/?p=985" target="_blank" rel="noopener">DSA commission on home loans: 0.25% to 1% of the amount disbursed</a></li></ul>
+<p>All customer names, lender terms, trade advance limits and commissions shown in the product are demo values. The market table mixes public figures with marked assumptions. Prices are Bengaluru ex-showroom listings checked on 12 Oct 2026.</p></div></footer>
+
+<script>
+(function () {
+  var fee = document.getElementById('fee'), som = document.getElementById('som'), per = document.getElementById('per1000');
+  function fmt(r) { if (r >= 1e7) return 'Rs ' + (r / 1e7).toFixed(1).replace(/\.0$/, '') + ' crore'; return 'Rs ' + (r / 1e5).toFixed(1).replace(/\.0$/, '') + ' lakh'; }
+  function go() { var f = Math.max(0, +fee.value || 0); som.textContent = fmt(f * 12 * 178); document.getElementById('somtext').textContent = fmt(f * 12 * 178); per.textContent = fmt(f * 12 * 1000); }
+  fee.addEventListener('input', go); go();
+})();
+</script>
+</body></html>

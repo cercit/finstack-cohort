@@ -1,0 +1,1 @@
+True if int({#primary/logic_variable/name_match#}.split()[2].replace("%", "")) < 90 and int({#primary/logic_variable/pan_match#}.split()[2].replace("%", "")) < 100 else False

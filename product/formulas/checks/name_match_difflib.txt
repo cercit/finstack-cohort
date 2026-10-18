@@ -1,0 +1,1 @@
+"Name Match " + str(round(100 * __import__('difflib').SequenceMatcher(None, {#primary/custom-externalapi-enquiry_<id>/customer_name#}.lower().strip(), {#primary/kyc-digilocker-<id>/pan_user_name#}.lower().strip()).ratio()) if {#primary/custom-externalapi-enquiry_<id>/customer_name#}.strip() and {#primary/kyc-digilocker-<id>/pan_user_name#}.strip() else 0) + "% from Digilocker"

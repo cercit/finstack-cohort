@@ -6,7 +6,7 @@ import re, sys, pathlib
 PATTERNS = {
     "MOBILE": re.compile(r"(?<!\d)(?:\+?91[ -]?)?[6-9]\d{4}[ -]?\d{5}(?!\d)"),
     "PAN": re.compile(r"(?<![A-Za-z0-9])[A-Z]{5}[0-9]{4}[A-Z](?![A-Za-z0-9])"),
-    "AADHAAR": re.compile(r"(?<!\d)\d{4}[ -]?\d{4}[ -]?\d{4}(?!\d)"),
+    "AADHAAR": re.compile(r"(?<![\d/_-])\d{4}[ -]?\d{4}[ -]?\d{4}(?![\d_])"),  # not inside URLs or ids
     "EMAIL": re.compile(r"[\w.+-]+@[\w-]+\.[\w.-]+"),
     "SECRET": re.compile(r"(?i)(password|passwd|pwd|secret|api[_-]?key|token)\s*[:=]\s*\S+"),
     "LOGIN-URL": re.compile(r"(?i)https?://[^\s]*(login|onboarding|\?url=)[^\s]*"),

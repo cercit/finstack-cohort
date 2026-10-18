@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DealerFinance Overview</title>
+<style>
+  :root {
+    --ink: #14202b; --muted: #55646f; --line: #d9e1e8; --bg: #f3f6f9; --card: #ffffff;
+    --brand: #123b50; --brand-2: #1f6f8b; --accent: #2563eb; --soft: #eaf2ff;
+    --ok: #157347; --ok-bg: #e3f4ea; --warn: #8a5a00; --warn-bg: #fff1d6; --bad: #a12a2a; --bad-bg: #fbe3e3;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--bg); color: var(--ink); font: 17px/1.6 system-ui, "Segoe UI", Roboto, Arial, sans-serif; }
+  a { color: var(--accent); }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 0 22px; }
+  nav.top { position: sticky; top: 0; z-index: 5; background: rgba(255,255,255,.94); backdrop-filter: blur(6px); border-bottom: 1px solid var(--line); }
+  nav.top .wrap { display: flex; gap: 6px; align-items: center; overflow-x: auto; padding-top: 10px; padding-bottom: 10px; }
+  nav.top b { color: var(--brand); margin-right: 14px; white-space: nowrap; }
+  nav.top a { color: var(--muted); text-decoration: none; padding: 5px 12px; border-radius: 999px; font-size: 15px; white-space: nowrap; }
+  nav.top a:hover { background: var(--soft); color: var(--accent); }
+
+  header.hero { background: linear-gradient(150deg, var(--brand), var(--brand-2)); color: #fff; padding: 70px 0 64px; }
+  header.hero .tag { display: inline-block; background: rgba(255,255,255,.16); border-radius: 999px; padding: 3px 14px; font-size: 15px; margin-bottom: 18px; }
+  header.hero h1 { font-size: clamp(34px, 5.5vw, 54px); line-height: 1.1; margin: 0 0 16px; }
+  header.hero p.lead { font-size: clamp(19px, 2.4vw, 24px); max-width: 780px; margin: 0 0 8px; opacity: .96; }
+  header.hero p.sm { max-width: 780px; opacity: .85; margin: 14px 0 0; font-size: 16px; }
+
+  section { padding: 54px 0 6px; }
+  h2 { font-size: 30px; color: var(--brand); margin: 0 0 6px; }
+  .kicker { color: var(--muted); margin: 0 0 24px; max-width: 760px; }
+  .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; }
+  .card h3 { margin: 0 0 6px; font-size: 19px; color: var(--brand); }
+  .card p { margin: 0; color: var(--ink); }
+  .card .who { font-size: 14px; font-weight: 700; letter-spacing: .03em; text-transform: uppercase; color: var(--brand-2); margin-bottom: 4px; }
+
+  .problem { background: var(--card); border-left: 6px solid var(--bad); border-radius: 12px; padding: 22px 26px; font-size: 20px; margin-bottom: 22px; border-top: 1px solid var(--line); border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+  .problem small { display: block; color: var(--muted); font-size: 14px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 6px; }
+
+  .flow { counter-reset: s; display: grid; gap: 14px; }
+  .flow .st { display: grid; grid-template-columns: 54px 1fr; gap: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 18px 22px; }
+  .flow .st::before { counter-increment: s; content: counter(s); width: 44px; height: 44px; border-radius: 50%; background: var(--brand); color: #fff; font-weight: 800; font-size: 19px; display: flex; align-items: center; justify-content: center; }
+  .flow h3 { margin: 0 0 4px; font-size: 19px; color: var(--brand); }
+  .flow p { margin: 0 0 6px; }
+  .flow .who { display: inline-block; font-size: 13px; font-weight: 700; background: var(--soft); color: var(--accent); border-radius: 999px; padding: 1px 10px; margin-right: 6px; }
+  .flow .who.cust { background: var(--ok-bg); color: var(--ok); }
+  .flow .who.sys { background: #eee9ff; color: #5b3fb5; }
+
+  .two { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start; }
+  .lender { display: grid; grid-template-columns: 1fr auto; gap: 4px 12px; border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; background: #fff; margin-bottom: 12px; }
+  .lender.first { border: 2px solid var(--ink); }
+  .lender b { font-size: 18px; }
+  .lender .emi { font-size: 22px; font-weight: 800; grid-column: 1 / -1; }
+  .lender .tags { grid-column: 1 / -1; display: flex; gap: 8px; flex-wrap: wrap; }
+  .tag2 { background: #eef2f6; border: 1px solid var(--line); border-radius: 8px; padding: 2px 10px; font-size: 14px; }
+  .pill { display: inline-block; padding: 2px 12px; border-radius: 999px; font-size: 14px; font-weight: 700; justify-self: end; }
+  .pill.ok { background: var(--ok-bg); color: var(--ok); }
+  .pill.warn { background: var(--warn-bg); color: var(--warn); }
+  .rules { padding-left: 20px; margin: 8px 0 0; }
+  .rules li { margin: 5px 0; }
+
+  table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; }
+  th, td { text-align: left; padding: 12px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { background: #f6f8fa; color: var(--brand); font-size: 15px; }
+  td.us { background: var(--soft); font-weight: 600; }
+  tr:last-child td { border-bottom: 0; }
+
+  .money { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px 24px; margin-top: 18px; }
+  .money .row { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px dashed var(--line); }
+  .money .row:last-child { border-bottom: 0; font-weight: 800; font-size: 19px; }
+
+  .status { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .status ul { margin: 8px 0 0; padding-left: 20px; }
+  .status li { margin: 5px 0; }
+  .done h3 { color: var(--ok); } .todo h3 { color: var(--warn); }
+
+  .callout { background: var(--soft); border: 1px solid #bcd3fb; border-radius: 14px; padding: 22px 26px; font-size: 20px; }
+  footer { padding: 40px 0 60px; color: var(--muted); font-size: 15px; }
+
+  /*flow-css*/
+  .diagram { background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 18px 18px 8px; margin-bottom: 26px; }
+  .diagram svg { width: 100%; height: auto; display: block; }
+  h3.dg { margin: 0 0 4px; font-size: 21px; color: var(--brand); }
+  h3.dg2 { margin: 6px 0 12px; font-size: 21px; color: var(--brand); }
+  @media (max-width: 860px) { .diagram { display: none; } }
+
+  @media (max-width: 800px) {
+    .two, .status { grid-template-columns: 1fr; }
+    .flow .st { grid-template-columns: 1fr; }
+    th, td { padding: 10px 10px; font-size: 15px; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="top"><div class="wrap">
+  <b>DealerFinance</b>
+  <a href="#what">What it is</a><a href="#problem">The problem</a><a href="#how">How it works</a><a href="#match">The match</a><a href="#different">Why different</a><a href="#money">Who pays</a><a href="#safe">Safeguards</a><a href="#status">Status</a>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <span class="tag">FinStack FinTech PM Hackathon · Bengaluru</span>
+  <h1>DealerFinance</h1>
+  <p class="lead">The buyer just enquires about a car. In the background, DealerFinance has already worked out which lender will say yes, so the dealer calls with an EMI, not a loan form.</p>
+  <p class="sm">Lender matching for new-car dealers, built on FinStack's Form Builder, Journey Builder and API Hub.</p>
+</div></header>
+
+<main class="wrap">
+
+<section id="what">
+  <h2>What it is</h2>
+  <p class="kicker">A tool the dealer uses to match each new-car buyer to the right bank or NBFC, send the case, and follow it until the money lands.</p>
+  <div class="cards">
+    <div class="card"><div class="who">For</div><h3>New-car dealers</h3><p>Multi-brand dealers in Bengaluru who work with several banks and NBFCs. The dealer pays for it, like any software subscription.</p></div>
+    <div class="card"><div class="who">Used by</div><h3>The dealership team</h3><p>The Dealer Principal runs it. The finance coordinator matches and sends. Sales staff enter leads. Each role sees only what it needs.</p></div>
+    <div class="card"><div class="who">Customer</div><h3>An individual car buyer</h3><p>Mostly salaried, some self-employed. They fill one enquiry form, and the finance step happens quietly behind it.</p></div>
+  </div>
+</section>
+
+<section id="problem">
+  <h2>The problem we are solving</h2>
+  <p class="kicker">Today the dealer decides which lender to try by habit and guesswork.</p>
+  <div class="problem"><small>Problem statement</small>
+    New-car dealers with tie-ups to several banks and NBFCs have no quick way to know which financier will approve a customer. So they guess, rejected cases bounce from lender to lender, customers wait or walk away, and the dealer's commission is chased on paper.
+  </div>
+  <div class="cards">
+    <div class="card"><div class="who">Dealer Principal</div><p>Loses car sales when finance falls through. Has no view of which lender actually performs.</p></div>
+    <div class="card"><div class="who">Finance coordinator</div><p>Guesses the lender, re-sends the same file, and chases status on phone calls.</p></div>
+    <div class="card"><div class="who">Customer</div><p>Waits hours or days, and has several lenders check their credit one after another.</p></div>
+    <div class="card"><div class="who">Accounts team</div><p>Tracks commission, GST and TDS on paper and finds short payments late.</p></div>
+  </div>
+</section>
+
+<section id="how">
+  <h2>How it works</h2>
+  <p class="kicker">Seven steps from enquiry to commission. The customer only sees the first and the third.</p>
+  <!--FLOW--><div class="diagram"><h3 class="dg">The flow at a glance</h3><p class="kicker" style="margin:0 0 12px">Read down the page. Solid arrows are the normal path, dashed red is where it stops or loops back, the amber box is a person checking an edge case.</p><svg viewBox="0 0 1100 1020" role="img" aria-label="DealerFinance flow in four lanes: customer, DealerFinance, dealer team, lender" xmlns="http://www.w3.org/2000/svg"><defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#123b50"/></marker><marker id="ahr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#a12a2a"/></marker></defs><style>.t{font:700 16px system-ui,Segoe UI,Arial,sans-serif;fill:#14202b}.s{font:14px system-ui,Segoe UI,Arial,sans-serif;fill:#3c4b57}.h{font:700 16px system-ui,Segoe UI,Arial,sans-serif}.lb{font:700 13px system-ui,Segoe UI,Arial,sans-serif;fill:#14202b}.ar{fill:none;stroke:#123b50;stroke-width:2.2}.ar.red{stroke:#a12a2a;stroke-dasharray:7 5}</style><rect x="20" y="20" width="265" height="980" fill="#e3f4ea" opacity=".55" stroke="#c9d4de"/><rect x="20" y="20" width="265" height="44" fill="#e3f4ea" stroke="#c9d4de"/><text x="152" y="48" text-anchor="middle" class="h" fill="#157347">Customer</text><rect x="285" y="20" width="265" height="980" fill="#efeaff" opacity=".55" stroke="#c9d4de"/><rect x="285" y="20" width="265" height="44" fill="#efeaff" stroke="#c9d4de"/><text x="417" y="48" text-anchor="middle" class="h" fill="#5b3fb5">DealerFinance, behind the scenes</text><rect x="550" y="20" width="265" height="980" fill="#e6f0ff" opacity=".55" stroke="#c9d4de"/><rect x="550" y="20" width="265" height="44" fill="#e6f0ff" stroke="#c9d4de"/><text x="682" y="48" text-anchor="middle" class="h" fill="#1d4ed8">Dealer team</text><rect x="815" y="20" width="265" height="980" fill="#fff1d6" opacity=".55" stroke="#c9d4de"/><rect x="815" y="20" width="265" height="44" fill="#fff1d6" stroke="#c9d4de"/><text x="947" y="48" text-anchor="middle" class="h" fill="#8a5a00">Lender</text><path d="M152 196 V275 H307" class="ar" marker-end="url(#ah)"/><path d="M417 321 V400 H262" class="ar" marker-end="url(#ah)"/><path d="M152 446 V525 H307" class="ar" marker-end="url(#ah)"/><path d="M417 571 V650 H572" class="ar" marker-end="url(#ah)"/><path d="M682 696 V775 H837" class="ar" marker-end="url(#ah)"/><path d="M947 821 V900 H792" class="ar" marker-end="url(#ah)"/><text x="868" y="892" class="lb" text-anchor="middle">Disbursed</text><path d="M947 729 V650 H792" class="ar red" marker-end="url(#ahr)"/><text x="870" y="641" class="lb" text-anchor="middle">Rejected: reroute</text><path d="M527 275 H572" class="ar red" marker-end="url(#ahr)"/><path d="M527 525 H572" class="ar" marker-end="url(#ah)"/><path d="M682 571 V604" class="ar" marker-end="url(#ah)"/><text x="722" y="594" class="lb" text-anchor="middle">Approved</text><rect x="42" y="104" width="220" height="92" rx="12" fill="#ffffff" stroke="#123b50" stroke-width="2"/><text x="152" y="130" text-anchor="middle" class="t">1. Enquire about a car</text><text x="152" y="153" text-anchor="middle" class="s">Fills the enquiry form.</text><text x="152" y="172" text-anchor="middle" class="s">One consent line + OTP</text><rect x="307" y="229" width="220" height="92" rx="12" fill="#ffffff" stroke="#123b50" stroke-width="2"/><text x="417" y="255" text-anchor="middle" class="t">2. Soft credit check</text><text x="417" y="278" text-anchor="middle" class="s">Name + mobile; PAN asked</text><text x="417" y="297" text-anchor="middle" class="s">only if no bureau hit</text><rect x="572" y="229" width="220" height="92" rx="12" fill="#fbe3e3" stroke="#a12a2a" stroke-width="2" stroke-dasharray="6 4"/><text x="682" y="255" text-anchor="middle" class="t">No consent: on hold</text><text x="682" y="278" text-anchor="middle" class="s">No check, no matching;</text><text x="682" y="297" text-anchor="middle" class="s">lead waits for consent</text><rect x="42" y="354" width="220" height="92" rx="12" fill="#ffffff" stroke="#123b50" stroke-width="2"/><text x="152" y="380" text-anchor="middle" class="t">3. Confirm identity</text><text x="152" y="403" text-anchor="middle" class="s">DigiLocker OTP and</text><text x="152" y="422" text-anchor="middle" class="s">PAN verify</text><rect x="307" y="479" width="220" height="92" rx="12" fill="#ffffff" stroke="#123b50" stroke-width="2"/><text x="417" y="505" text-anchor="middle" class="t">4. Match to lenders</text><text x="417" y="528" text-anchor="middle" class="s">Simple rules give Likely,</text><text x="417" y="547" text-anchor="middle" class="s">Possible or Not a fit</text><rect x="572" y="479" width="220" height="92" rx="12" fill="#fff1d6" stroke="#8a5a00" stroke-width="2" stroke-dasharray="6 4"/><text x="682" y="505" text-anchor="middle" class="t">Review queue</text><text x="682" y="528" text-anchor="middle" class="s">Name mismatch, no hit,</text><text x="682" y="547" text-anchor="middle" class="s">Possible fit, 4th lender</text><rect x="572" y="604" width="220" height="92" rx="12" fill="#ffffff" stroke="#123b50" stroke-width="2"/><text x="682" y="630" text-anchor="middle" class="t">5. Pick and send</text><text x="682" y="653" text-anchor="middle" class="s">Coordinator sends to</text><text x="682" y="672" text-anchor="middle" class="s">up to 3 lenders</text><rect x="837" y="729" width="220" height="92" rx="12" fill="#ffffff" stroke="#123b50" stroke-width="2"/><text x="947" y="755" text-anchor="middle" class="t">6. Lender decides</text><text x="947" y="778" text-anchor="middle" class="s">Approve, sanction,</text><text x="947" y="797" text-anchor="middle" class="s">disburse</text><rect x="572" y="854" width="220" height="92" rx="12" fill="#ffffff" stroke="#123b50" stroke-width="2"/><text x="682" y="880" text-anchor="middle" class="t">7. Get paid</text><text x="682" y="903" text-anchor="middle" class="s">Commission + 18% GST</text><text x="682" y="922" text-anchor="middle" class="s">less 2% TDS; trade advance</text></svg></div><h3 class="dg2">The same flow in words</h3><!--/FLOW--><div class="flow">
+    <div class="st"><div><span class="who cust">Customer</span><h3>Enquire about a car</h3>
+      <p>The customer fills the car enquiry form, in the showroom or from a link. One extra line asks for consent to a soft credit check, with no effect on their score, and an OTP confirms it. No consent, no check: the lead waits.</p></div></div>
+    <div class="st"><div><span class="who sys">Behind the scenes</span><h3>Quiet credit check</h3>
+      <p>With consent, a soft pull runs on name and mobile. If the bureau can't find the customer, PAN is asked and the check is retried. The score is used only to pick the lender. It is never passed on to the lenders.</p></div></div>
+    <div class="st"><div><span class="who cust">Customer</span><h3>Confirm identity</h3>
+      <p>A DigiLocker OTP gives a verified name and address. PAN is verified at the start. The dealer never keeps copies of Aadhaar.</p></div></div>
+    <div class="st"><div><span class="who sys">Behind the scenes</span><h3>Match to lenders</h3>
+      <p>Simple lender rules score each option as Likely, Possible or Not a fit. Rules cover credit score, loan against car price, EMI against income, income proof, enquiries in the last 3 months, missed payments and pin code. Where a lender needs proof, the customer uploads a bank statement and we read the income from it.</p></div></div>
+    <div class="st"><div><span class="who">Dealer</span><h3>Pick and send</h3>
+      <p>The finance coordinator sees the ranked lenders with the EMI for each, and sends the case. Up to 3 lenders per case. A fourth needs the Dealer Principal's approval, and choosing below the top match needs a written reason.</p></div></div>
+    <div class="st"><div><span class="who">Dealer</span><h3>Follow the case</h3>
+      <p>Each case moves through sent, under credit approval, approved, sanctioned and disbursed. A rejection sends it to the next lender instead of back to the start.</p></div></div>
+    <div class="st"><div><span class="who">Dealer</span><h3>Get paid</h3>
+      <p>The commission ledger shows what each lender owes: commission plus 18% GST, less 2% TDS. It flags short payments. A trade advance tracker shows how much credit room is left with each lender.</p></div></div>
+  </div>
+</section>
+
+<section id="match">
+  <h2>The match screen</h2>
+  <p class="kicker">What the finance coordinator sees for one customer. Demo numbers on a ₹9,20,000 loan over 60 months.</p>
+  <div class="two">
+    <div>
+      <div class="lender first"><b>1. Bank A</b><span class="pill ok">Likely fit</span>
+        <div class="emi">₹19,053 / month · 8.9%</div>
+        <div class="tags"><span class="tag2">Trade advance ₹38 L free</span><span class="tag2">Commission 1.0%</span><span class="tag2">Pays out in ~1 day</span></div></div>
+      <div class="lender"><b>2. Bank B</b><span class="pill ok">Likely fit</span>
+        <div class="emi">₹19,098 / month · 9.0%</div>
+        <div class="tags"><span class="tag2">Trade advance ₹20 L free</span><span class="tag2">Commission 1.25%</span><span class="tag2">Pays out in ~2 days</span></div></div>
+      <div class="lender"><b>3. NBFC C</b><span class="pill warn">Possible fit</span>
+        <div class="emi">₹19,774 / month · 10.5%</div>
+        <div class="tags"><span class="tag2">Trade advance ₹20 L free</span><span class="tag2">Commission 1.5%</span><span class="tag2">Decision in ~4 hrs</span></div></div>
+    </div>
+    <div class="card">
+      <h3>How the order is decided</h3>
+      <ol class="rules">
+        <li><b>Fit first:</b> Likely before Possible. Not a fit is left out.</li>
+        <li><b>The customer's preferred lender</b>, if they have one.</li>
+        <li><b>Lowest EMI</b> after that.</li>
+      </ol>
+      <p style="margin:14px 0 0">The tags on each card (trade advance, commission, how fast the lender pays out) only break ties. They never push a customer to a costlier lender.</p>
+      <p style="margin:14px 0 0" class="kicker">In the dealer portal, the lender is suggested by income proof and credit band: proof Yes and score above 750 goes to Bank 1, 700 to 750 to Bank 2, below 700 to NBFC 1.</p>
+    </div>
+  </div>
+</section>
+
+<section id="different">
+  <h2>Why it is different</h2>
+  <p class="kicker">Car makers already have finance portals. They work the other way round.</p>
+  <table>
+    <tr><th></th><th>Car maker finance portals (for example Maruti Suzuki Smart Finance)</th><th>DealerFinance</th></tr>
+    <tr><td><b>Who chooses</b></td><td>The customer picks the dealer and the financier</td><td class="us">The dealer matches the case and sends it</td></tr>
+    <tr><td><b>Brands</b></td><td>One brand only</td><td class="us">Any brand the dealer sells</td></tr>
+    <tr><td><b>What the dealer sees</b></td><td>No view of trade advance limit, commission or how fast a lender pays</td><td class="us">Trade advance left, commission and payout speed next to every lender</td></tr>
+    <tr><td><b>After the send</b></td><td>Customer-led tracking</td><td class="us">Dealer-led stages, reroute on rejection, commission ledger</td></tr>
+  </table>
+  <div class="callout" style="margin-top:20px"><b>The subtle part:</b> the customer never fills a loan form. Their credit consent sits inside the car enquiry they were going to submit anyway.</div>
+</section>
+
+<section id="money">
+  <h2>Who pays, and how the dealer earns</h2>
+  <p class="kicker">The dealer pays for the software. The lenders pay the dealer commission on cases that disburse, as they do today.</p>
+  <div class="money">
+    <div style="font-weight:700; margin-bottom:6px; color:var(--brand)">Commission example: ₹9,20,000 loan at 1.5%</div>
+    <div class="row"><span>Commission</span><span>₹13,800</span></div>
+    <div class="row"><span>Add GST at 18%</span><span>+ ₹2,484</span></div>
+    <div class="row"><span>Less TDS at 2%</span><span>− ₹276</span></div>
+    <div class="row"><span>Net the dealer should receive</span><span>₹16,008</span></div>
+  </div>
+</section>
+
+<section id="safe">
+  <h2>Safeguards</h2>
+  <div class="cards">
+    <div class="card"><h3>Consent first</h3><p>No credit check, KYC or matching without recorded consent. Not even the Dealer Principal can override it.</p></div>
+    <div class="card"><h3>Soft pull only</h3><p>The credit report is used only to choose a lender. Each lender runs its own check on the case it receives.</p></div>
+    <div class="card"><h3>Human review for edge cases</h3><p>Name mismatches, no credit history, "Possible" fits, overrides and a fourth lender all go to one review queue with a reason on record.</p></div>
+    <div class="card"><h3>Individuals only</h3><p>Private new-car buyers. No businesses, no used cars, no top-ups.</p></div>
+  </div>
+</section>
+
+<section id="status">
+  <h2>Where we are</h2>
+  <p class="kicker">Honest status, 13 Oct 2026. The hackathon closes at the end of the day.</p>
+  <div class="status">
+    <div class="card done"><h3>Done</h3>
+      <ul>
+        <li>Problem, users and 26 design decisions written down</li>
+        <li>Wireframe and a 4-board wireflow of the whole journey</li>
+        <li>Customer journey built in FinStack: enquiry, verification, price and loan figures</li>
+        <li>Price lookup for Kia (182 variants), with road tax, insurance, TCS, on-road and loan formulas</li>
+        <li>Resale estimate for an exchange car (6 brands, up to 10 years)</li>
+        <li>Dealer screens designed (login, case match, dashboard). FinStack has no separate login portal, so dealer executives use the same journey in assisted mode</li>
+        <li>Bengaluru starter data: 6 brands, 84 models, 178 dealer listings, 10 lenders</li>
+      </ul></div>
+    <div class="card todo"><h3>Still to do</h3>
+      <ul>
+        <li>Show the lender match inside the same journey, for the customer or the dealer executive</li>
+        <li>Load the price lookups for the other five brands into FinStack</li>
+        <li>Fix TCS showing zero after a refresh</li>
+        <li>Confirm whose bureau access FinStack's credit APIs use for a dealer client</li>
+        <li>Real lender rates for seven of the ten lenders</li>
+        <li>The financiers screen and the lender stages</li>
+      </ul></div>
+  </div>
+</section>
+
+</main>
+
+<footer><div class="wrap">All customer names, lender terms, trade advance limits and commissions on this page are made-up demo values, not any lender's real terms. Prices are Bengaluru ex-showroom listings checked on 12 Oct 2026 and are not dealer quotes.</div></footer>
+</body>
+</html>

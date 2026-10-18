@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>DealerFinance Production Launch Plan</title>
+<style>
+@page{size:A4;margin:16mm 20mm}
+*{box-sizing:border-box}
+body{margin:0;font:9.6pt/1.36 "Segoe UI",Arial,sans-serif;color:#1c2733}
+h1{font-size:19pt;margin:0 0 2pt;color:#123a52}
+.sub{color:#5b6b78;font-size:9pt;margin:0 0 8pt}
+h2{font-size:12pt;margin:11pt 0 4pt;color:#123a52;border-bottom:1.5px solid #123a52;padding-bottom:2pt;break-after:avoid}
+h3{font-size:10pt;margin:7pt 0 2pt;break-after:avoid}
+p{margin:0 0 4pt}
+ul,ol{margin:2pt 0 4pt 15pt;padding:0}
+li{margin:1.5pt 0}
+table{border-collapse:collapse;width:100%;margin:3pt 0 5pt;font-size:8.8pt}
+th,td{border:1px solid #9aa7b2;padding:3.5pt 5pt;text-align:left;vertical-align:top}
+th{background:#e8eef2}
+tr{break-inside:avoid}
+.box{border:1.5px solid #123a52;background:#f2f7fa;padding:5pt 8pt;margin:4pt 0 6pt}
+.tag{font-size:8pt;color:#5b6b78}
+</style>
+</head>
+<body>
+<h1>DealerFinance: production launch plan</h1>
+<p class="sub"><b>Team 6: Aditya Sharan and Sameer S Mittimani</b> · FinStack FinTech PM Hackathon, Bengaluru<br>Matches a new-car buyer to the right lender at the dealership counter, and settles the dealer's trade advance and commission. Built on FinStack for Kia cars with four lenders. All figures are test values.</p>
+
+<h2>1. Where it plugs in</h2>
+<p><b>Platforms where this journey can sit:</b> a dealership's DMS or CRM (the system the sales executive types the enquiry and quote into); a carmaker's dealer portal; new-car marketplaces that pass leads to dealers; loan aggregator or DSA apps that dealers already use; the enquiry form on a dealer's own website or WhatsApp.</p>
+<div class="box"><b>Chosen platform: the dealership DMS or CRM.</b> The executive already enters the customer's name, mobile, car, variant, quote, down payment and exchange car, in front of the customer, at the moment the buyer is ready to pay. That is the right moment to ask "do you want finance?". The dealer also earns commission from the lender, so it wants the decision at the counter, not days later. One connection to a DMS can reach every outlet that uses it (to be confirmed with the DMS vendor).</div>
+
+<h2>2. Fields the platform must give us</h2>
+<table>
+<thead><tr><th style="width:19%">Screen</th><th>Fields from the platform</th><th style="width:21%">How often</th></tr></thead><tbody>
+<tr><td>1 Enquiry</td><td>Customer name, mobile, outlet id, executive id. Consent is taken inside our Step 1 (the terms tick, then a 6-digit code to the customer's own phone), so the platform needs no consent tick of its own.</td><td>Once, when the customer says yes to finance</td></tr>
+<tr><td>DigiLocker</td><td>Nothing. The customer does Aadhaar OTP in our SDK. PAN name, PAN number and date of birth come back to us.</td><td>Once</td></tr>
+<tr><td>2 Verification</td><td>Car model and variant code, exchange yes or no, exchange vehicle number, down payment agreed, employment type, monthly income, monthly EMI commitment, income proof yes or no.</td><td>Once, and again if any value changes</td></tr>
+<tr style="white-space:nowrap"><td>3 Customer_Inputs</td><td>All 7 fields pre-filled from the dealer's quote and our rules.</td><td>On quote change</td></tr>
+<tr><td>4 Routing-1</td><td>The dealer's lender panel (which of the four lenders this dealer works with). We add credit score (or an NTC label when there is none) and LTV.</td><td>Once, as setup</td></tr>
+<tr><td>5 Routing-2</td><td>Nothing in. Out to the platform: lender, status (approved or rejected), approved amount. If the status is <b>rejected</b>, the case routes back to Routing-1 to pick another lender. In future, Routing-2 becomes a plain submit, and everything after it (lender decision, status, approved amount) runs as backend activities with no screen.</td><td>Every decision</td></tr>
+<tr><td>6 Settlement</td><td>Lender's trade advance limit and amount used so far, commission rate per lender, booking or invoice number once the car is billed.</td><td>Every case, plus a daily balance feed</td></tr>
+</tbody></table>
+
+<div class="box"><b>In short:</b>
+<ul style="margin-bottom:0">
+<li><b>Shared once:</b> customer name and mobile, and the dealer's lender panel.</li>
+<li><b>Shared again on a change:</b> the quote and the customer's answers (income, EMI, down payment, exchange car).</li>
+<li><b>Sent back every time:</b> the lender, the status and the approved amount, so the executive can quote the exact cash needed.</li>
+<li><b>Never asked of the platform:</b> Aadhaar, bureau data and bank details. These stay with DigiLocker and FinStack.</li>
+</ul></div>
+<h3 style="break-before:page;margin-top:0">Where more can be pre-filled (fewer typed fields)</h3>
+<table>
+<thead><tr><th style="width:30%">Field typed today</th><th style="width:44%">Pre-fill source</th><th>Status</th></tr></thead><tbody>
+<tr><td>PAN, name, date of birth</td><td>DigiLocker</td><td>Built; match checks written</td></tr>
+<tr><td>Credit score</td><td>Bureau soft pull</td><td>Built (Step 4)</td></tr>
+<tr><td>Monthly EMI commitment</td><td>Obligations in the bureau report</td><td>Planned</td></tr>
+<tr><td>Monthly income</td><td>Bank statement via Account Aggregator</td><td>Planned</td></tr>
+<tr><td>Exchange car value</td><td>Vehicle number, then RC details, then value</td><td>Rule built; API pending</td></tr>
+<tr><td>Customer_Inputs (all 7 fields)</td><td>Dealer's quote; our lookup as fallback</td><td>Built; DMS feed planned</td></tr>
+<tr><td>Trade advance used</td><td>Live lender data</td><td>Demo value today</td></tr>
+</tbody></table>
+
+<h2>3. What the platform has to change</h2>
+<ol>
+<li>Add a "Finance" button on the quote screen that opens our journey when the customer says yes to finance, and passes name, mobile, quote id and outlet id. Consent needs no change on the platform, because our Step 1 already holds the terms tick and the code sent to the customer's phone.</li>
+<li>Send the quote fields in section 2 by API. Send them again on any change, with the quote id, so we update the case and do not make a second one.</li>
+<li>Take our result back by callback (lender, status, approved amount, extra down payment) and show it on the quote or booking screen, so the executive can tell the customer the exact cash needed.</li>
+<li>If every lender rejects, hide the finance offer for that customer.</li>
+<li>Accept a monthly commission file (case, lender, amount) so accounts can match it to lender payouts.</li>
+<li>Nothing to change for customers new to credit: our journey shows NTC and carries on by itself.</li>
+<li>Give executives their own logins. FinStack keeps consent, Aadhaar-linked and bureau data. The platform stores only status and amounts.</li>
+</ol>
+
+<h2>4. Launch plan (hypothetical)</h2>
+<p class="tag">This is our proposed plan. Dates, outlet counts and the fee are assumptions to refine with real pilot data.</p>
+<table>
+<thead><tr><th style="width:21%">Phase</th><th>What happens</th><th style="width:26%">Exit check</th></tr></thead><tbody>
+<tr><td>0. Fix and connect (weeks 0 to 2)</td><td>Fix the open issues in section 5. Switch on the real PAN, bureau, asset and lender-send connections. Run 20 staff cases through one dealership.</td><td>Open issues in section 5 closed and re-tested</td></tr>
+<tr><td>1. Pilot (weeks 3 to 8)</td><td>One or two Kia outlets in Bengaluru. Executive-assisted only. Review every case each day.</td><td>Completion and decision time set as the baseline</td></tr>
+<tr><td>2. One dealer group (months 3 to 6)</td><td>All its outlets and brands. Customer self-serve link by WhatsApp. First DMS connection.</td><td>Commission matches lender payouts for a full month</td></tr>
+<tr><td>3. Bengaluru (months 6 to 12)</td><td>Up to 178 outlets across six brands, a second DMS, then used cars.</td><td>Paying outlets and repeat use</td></tr>
+</tbody></table>
+<p><b>What we measure:</b> cases started versus cases reaching settlement (completion); minutes from enquiry to lender decision; share approved; extra down payment explained at the counter; commission matched to lender payouts; executive minutes saved per case. We set the targets from the pilot baseline, not before.</p>
+<p><b>Money:</b> a software fee per outlet per month. We assume Rs 10,000, which gives about Rs 2.1 crore a year across 178 Bengaluru outlets. This is an assumption to test with dealers. Per-call charges for OTP, KYC and bureau are to be confirmed with FinStack.</p>
+<p><b>Rules and risks:</b> consent with timestamp and purpose before any bureau pull, confirmed by OTP on the customer's own phone (RBI digital lending guidelines, DPDP Act); keep the minimum data; disclose commission to the customer; lender agreements for each lender before go-live. Main risks: lender status is still set by hand, DMS integrations take time, and API slowness at the counter. Fallback: the executive can save the case and resume it from the My cases list.</p>
+
+<h2 style="break-before:page">5. What the live demo taught us, and what we changed</h2>
+<p>About 15 to 16 people tried the journey at the live demo, and some of them hit edge cases. Two things stopped the journey or cost us a paid call. Both are now handled.</p>
+<table>
+<thead><tr><th style="width:4%">#</th><th style="width:34%">What happened</th><th style="width:34%">What we changed</th><th>Effect</th></tr></thead><tbody>
+<tr><td>1</td><td>Customers who are new to credit (NTC) get no score from the bureau. The journey had nothing to show, and the next step needs a number.</td><td>If no score comes back, the screen shows "NTC" and the case carries on, offering only lenders that accept NTC. The credit report request stops at that point. The platform changes nothing.</td><td>No dead end for NTC customers. No repeat requests for a customer who has no file.</td></tr>
+<tr><td>2</td><td>The vehicle-number check works only when the customer has a car to exchange. With no exchange car, the journey stopped on that screen.</td><td>Skip the vehicle-number check when exchange is No. It runs only when exchange is Yes.</td><td>No dead end. One paid lookup fewer for every case without an exchange car.</td></tr>
+</tbody></table>
+<p><b>Lessons for production:</b> every paid call should have a "not available" path that shows a plain label and moves on. Before go-live we list each external call (OTP, DigiLocker, bureau, vehicle lookup, valuation, lender send) with what the journey does when it returns nothing, and we run one case through each. To build: the lender fit rule must read "NTC" as a valid answer, and we need the list of lenders that accept NTC, confirmed with each lender.</p>
+
+<h3>Still open before launch (from our own checks)</h3>
+<table>
+<thead><tr><th style="width:4%">#</th><th style="width:38%">Issue</th><th style="width:30%">Why it matters</th><th>Fix</th></tr></thead><tbody>
+<tr><td>1</td><td>The loan ignored the exchange value. It showed Rs 15,17,728 with an exchange value of Rs 3,13,000.</td><td>The customer would be quoted a loan about Rs 3.13 lakh too high (it should be Rs 12,04,728).</td><td>Read the exchange value in the loan formula after it fills. Re-test.</td></tr>
+<tr><td>2</td><td>Submitting "rejected" gave "Missing key approved_finance_amount".</td><td>A rejection cannot be recorded, so the reroute to another lender is blocked.</td><td>Default the amount to 0 on a rejection.</td></tr>
+<tr><td>3</td><td>Lender status is picked by hand.</td><td>No real lender decision.</td><td>Lender API or callback.</td></tr>
+<tr><td>4</td><td>Trade advance used is a fixed demo value with no running balance.</td><td>The balance is wrong after the first case.</td><td>Live lender data or a database.</td></tr>
+<tr><td>5</td><td>Step 4 still lists the lender that just rejected.</td><td>The executive can send it there again.</td><td>Remove the rejected lender from the list.</td></tr>
+<tr><td>6</td><td>Formulas that need today's date use a fixed date, because FinStack rejected the date and text-compare calls we tried.</td><td>Exchange value and age go out of date over time.</td><td>A date variable or API from FinStack.</td></tr>
+<tr><td>7</td><td>Display polish: "Income p.a" is net of EMI; credit health is hidden on Steps 4 and 5; Step 5 shows the car code, not the name; typo "varifcation".</td><td>Readers misread the screen.</td><td>Rename labels and show the readable car name and credit health.</td></tr>
+</tbody></table>
+</body>
+</html>
