@@ -1,6 +1,8 @@
 # FinStack cohort: learning record and the DealerFinance project
 
-**Status:** private draft, still being written.
+**Status:** private draft. Core notes, PRD, sprint plan, testing notes and launch plan are written; a few pieces are still being reviewed.
+
+**Please read first:** lender names, rates, limits and thresholds here are invented test values, not any lender's real policy. Car prices are demo listings. See `LICENSE` and `REDACTION.md`.
 
 A five-day fintech product management cohort (9 to 13 Oct 2026, Bengaluru) where we learned how lending companies and no-code lending platforms work, then planned, built, tested and fixed a product. This repo is the record: what I learned, what I built with it, what went wrong, and what I would do next.
 
@@ -8,12 +10,14 @@ A five-day fintech product management cohort (9 to 13 Oct 2026, Bengaluru) where
 
 ## Where to look
 
-| Folder | What is in it |
+| Folder or file | What is in it |
 |---|---|
-| `cohort/` | What we learned: day 1, day 2, the APIs, the no-code platform, consent and rules |
-| `product/` | The PRD, the sprint plan, the decisions log, the journey pages and wireframe, and the formulas |
-| `testing/` | The raw build log (failures and fixes are being written up) |
+| `cohort/` | What we learned: day 1, day 2, days 3 to 5, the APIs, the no-code platform, consent and rules |
+| `product/` | The PRD, sprint plan, decisions log, journey pages and wireframe, formulas, and a masked demo clip |
+| `testing/` | Failures and fixes, and the lessons from the live demo |
 | `launch/` | The production launch plan (markdown and pdf) |
+| `learned-to-used.md` | Each class topic linked to where we used it in the product |
+| `REDACTION.md` | What was removed from the repo and how it was checked |
 | `tools/` | A scanner that checks files for personal data, and a local viewer |
 
 To browse locally: `python tools/serve.py`, then open http://localhost:8765.

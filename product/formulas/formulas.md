@@ -1,5 +1,8 @@
 # DealerFinance: all formulas and codes (13 Oct 2026)
 
+
+> **Public copy:** the account-specific IDs in the FinStack variable paths are shown as `<id>`. Put your own journey's IDs back before pasting an expression into FinStack. All lender terms, rates and limits here are test values, not any lender's real policy.
+
 Every FinStack formula we settled, in one place. Variable names in `{#primary/logic_variable/...#}` are the ones used in the journey; the few marked **guess** were never confirmed, so check them against FinStack. All were tested in Python only, not inside FinStack.
 
 Rules that apply to every formula: no libraries, one expression, always bracket a dictionary before `.get(...)`, and after a refresh a value can arrive as text.
