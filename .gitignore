@@ -1,0 +1,13 @@
+# never commit these
+*.mp4
+*.mov
+*.zip
+*.xlsx
+*chat*.txt
+*chat*.md
+*.env
+*credentials*
+.DS_Store
+Thumbs.db
+__pycache__/
+tools/names.local.txt
