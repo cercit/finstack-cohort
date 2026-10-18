@@ -12,7 +12,7 @@ ASSETS = ROOT / "tools" / "site_assets"
 md = MarkdownIt("commonmark").enable("table")
 ME = "https://cercit.github.io/me"
 
-NAV = [("Learned", "learned/index.html"), ("Built", "built/index.html"), ("Tested", "tested/index.html"),
+NAV = [("Selection", "selection/index.html"), ("Learned", "learned/index.html"), ("Built", "built/index.html"), ("Tested", "tested/index.html"),
        ("Launch", "launch/index.html"), ("About", "about/index.html")]
 
 MAP = {   # repo path -> site path
@@ -25,6 +25,7 @@ MAP = {   # repo path -> site path
     "testing/failures-and-fixes.md": "tested/failures-and-fixes.html", "testing/live-demo-lessons.md": "tested/live-demo-lessons.html",
     "launch/production-launch-plan.md": "launch/index.html", "launch/production-launch-plan.pdf": "launch/production-launch-plan.pdf",
     "product/journey/wireframe-as-built.html": "built/wireframe.html",
+    "selection/bhim-vs-phonepe-teardown.md": "selection/index.html", "selection/bhim-vs-phonepe-teardown.pdf": "selection/bhim-vs-phonepe-teardown.pdf",
     "README.md": "about/index.html", "REDACTION.md": "about/index.html", "LICENSE": "about/index.html",
 }
 
@@ -42,7 +43,7 @@ BUILT = [("DealerFinance: product requirements document", "product/prd.md", "Pro
          ("Decisions log", "product/prd-decisions-log.md", "The design decisions, and how the logic was built without a database.")]
 TESTED = [("Failures and fixes", "testing/failures-and-fixes.md", "What broke, why, the fix and the lesson, with open items marked."),
           ("Live-demo lessons", "testing/live-demo-lessons.md", "Customers new to credit, and the vehicle check with no exchange car.")]
-SECTIONS = {"Learned": ("learned/index.html", "cohort / notes"), "Built": ("built/index.html", "product / documents"),
+SECTIONS = {"Selection": ("selection/index.html", "selection / project"), "Learned": ("learned/index.html", "cohort / notes"), "Built": ("built/index.html", "product / documents"),
             "Tested": ("tested/index.html", "testing / lessons"), "Launch": ("launch/index.html", "launch / plan"),
             "About": ("about/index.html", "about / privacy")}
 
@@ -133,8 +134,10 @@ def doc_page(src_rel, section, deck=""):
     extra = ""
     if src_rel == "launch/production-launch-plan.md":
         extra = f'<a class="button button-secondary" href="production-launch-plan.pdf">Download the PDF {ARROW}</a>'
-    back_text = section if section != "Launch" else "Overview"
-    back_href = rel(out_path, idx) if section != "Launch" else rel(out_path, "index.html")
+    back_text = section if section not in ("Launch", "Selection") else "Overview"
+    back_href = rel(out_path, idx) if section not in ("Launch", "Selection") else rel(out_path, "index.html")
+    if section == "Selection":
+        body += '<h2>The original PDF</h2><div class="tw"><iframe src="bhim-vs-phonepe-teardown.pdf" title="Original submitted PDF" style="width:100%;height:900px;border:0"></iframe></div>'
     main = hero(back_href, back_text, kicker, title, deck, actions=extra) + f'<div class="wrap doc-wrap"><article class="doc">{body}</article></div>'
     write(out_path, shell(out_path, title, deck or title, main, section))
 
@@ -154,8 +157,8 @@ def home():
              '<span class="visual-foot">Walk-through · 2:25 · name and one-time codes shown on purpose; mobile, PAN, vehicle number and Aadhaar covered · test data</span></div></div>')
     facts = ('<section class="case-facts wrap" aria-label="Project facts"><dl><div><dt>Cohort</dt><dd>9 to 13 Oct 2026, Bengaluru</dd></div><div><dt>Product</dt><dd>DealerFinance, new-car loans</dd></div>'
              '<div><dt>Data</dt><dd>Invented test values</dd></div><div><dt>My contribution</dt><dd>Product, PRD, sprint plan</dd></div></dl></section>')
-    side = ('<aside class="case-sidebar"><p class="eyebrow">Inside the project</p><nav aria-label="On this page"><a href="#section-1"><span>01</span>What I learned</a><a href="#section-2"><span>02</span>What we built</a>'
-            '<a href="#section-3"><span>03</span>What broke, and the fixes</a><a href="#section-4"><span>04</span>The launch plan</a><a href="#section-5"><span>05</span>Privacy and credits</a></nav>'
+    side = ('<aside class="case-sidebar"><p class="eyebrow">Inside the project</p><nav aria-label="On this page"><a href="#section-1"><span>01</span>How I got in</a><a href="#section-2"><span>02</span>What I learned</a><a href="#section-3"><span>03</span>What we built</a>'
+            '<a href="#section-4"><span>04</span>What broke, and the fixes</a><a href="#section-5"><span>05</span>The launch plan</a><a href="#section-6"><span>06</span>Privacy and credits</a></nav>'
             f'<a class="text-link" href="{ME}/work.html">All projects <span aria-hidden="true">↗</span></a></aside>')
 
     def links(items):
@@ -163,16 +166,17 @@ def home():
     story = f"""<article class="case-story"><p class="case-intro">I joined a five-day fintech product management cohort to learn how lenders and no-code lending platforms work. Then, with a teammate, I planned and built DealerFinance: a loan journey for new-car buyers at a dealership. We tested it live with about 15 to 16 people and fixed what broke.</p>
 <div class="contribution"><h2>My contribution</h2><p>I defined the product, wrote the PRD and sprint plan, built the journey formulas, ran the testing and wrote up what I learned. Claude helped with the code and the build tooling.</p></div>
 <ul class="days"><li><time>9 Oct</time> Banks, RBI, NBFCs and a first look at the platform</li><li><time>10 Oct</time> Underwriting, KYC, credit reports, income proof, hands-on</li><li><time>11 Oct</time> Office closed. Wireframe revised</li><li><time>12 Oct</time> Help day. The journey takes shape</li><li><time>13 Oct</time> Final brief and the live demo</li><li><time>14 Oct</time> Written production launch plan</li></ul>
-<section id="section-1" class="case-section"><span class="section-number">01</span><h2>What I learned</h2><p>Banks and lenders differ by what their money costs and which customers they choose. In a lending product the order of checks is a design choice: cheap checks first, costly ones later, and "no data" is a normal answer, not an error.</p><p>I wrote seven notes, and a table that links each class topic to where I used it in the product.</p>{links(LEARNED[:3])}<a class="text-link" href="{a('learned/index.html')}">All seven notes <span aria-hidden="true">↗</span></a></section>
-<section id="section-2" class="case-section"><span class="section-number">02</span><h2>What we built</h2><p>DealerFinance is a six-step journey. It collects consent by one-time code, verifies identity through DigiLocker, works out the price and loan, shows which lenders are likely to accept, sends the case to one lender, reroutes after a rejection and settles the dealer's trade advance and commission.</p><p>It runs on a no-code platform, for Kia cars and four lenders. Lender terms, rates and limits are invented test values.</p>{links(BUILT[:3])}<a class="text-link" href="{a('built/index.html')}">All documents <span aria-hidden="true">↗</span></a></section>
-<section id="section-3" class="case-section"><span class="section-number">03</span><h2>What broke, and the fixes</h2><p>At the live demo, customers with no credit score and customers with no car to exchange hit dead ends. We fixed both, and the second change also saved a paid lookup per case. My own testing found a loan formula that ignored the exchange value, which is still open.</p>{links(TESTED)}</section>
-<section id="section-4" class="case-section"><span class="section-number">04</span><h2>The launch plan</h2><p>The plan chooses a dealership system as the place to plug in, lists the fields it must give us on each screen, says what it has to change, and sets out four phases with the assumptions marked. It went in after the deadline, and the retrospective says so.</p><ul class="links"><li><a href="{a('launch/index.html')}"><span>Production launch plan<small>Page and PDF</small></span>{ARROW}</a></li></ul></section>
-<section id="section-5" class="case-section"><span class="section-number">05</span><h2>Privacy and credits</h2><p>Mobile numbers, PAN, Aadhaar, emails, logins and other people's names are not in this record. The demo clip shows my own name and one-time codes on purpose and covers the rest.</p><p>Teammate: Aditya Sharan (<a href="https://github.com/aaDhut">github.com/aaDhut</a>), Team 6.</p><ul class="chips"><li>Consent and KYC design</li><li>Credit bureau and soft pull</li><li>No-code journey building</li><li>PRD writing</li><li>Sprint planning</li><li>Edge-case testing</li><li>Production launch planning</li></ul><a class="text-link" href="{a('about/index.html')}">What was removed, and how <span aria-hidden="true">↗</span></a></section></article>"""
+<section id="section-1" class="case-section"><span class="section-number">01</span><h2>How I got in: the selection project</h2><p>Before the cohort, FinStack asked candidates for a piece of work. I submitted a product teardown of BHIM and PhonePe with a three-year roadmap for each. My view: PhonePe shows too much, BHIM shows too little, and each app's ownership explains why.</p><p>The page has the findings, the money table and both roadmaps, with the original PDF.</p><ul class="links"><li><a href="{a('selection/index.html')}"><span>BHIM vs PhonePe: teardown and roadmap<small>The selection project</small></span>{ARROW}</a></li></ul></section>
+<section id="section-2" class="case-section"><span class="section-number">02</span><h2>What I learned</h2><p>Banks and lenders differ by what their money costs and which customers they choose. In a lending product the order of checks is a design choice: cheap checks first, costly ones later, and "no data" is a normal answer, not an error.</p><p>I wrote seven notes, and a table that links each class topic to where I used it in the product.</p>{links(LEARNED[:3])}<a class="text-link" href="{a('learned/index.html')}">All seven notes <span aria-hidden="true">↗</span></a></section>
+<section id="section-3" class="case-section"><span class="section-number">03</span><h2>What we built</h2><p>DealerFinance is a six-step journey. It collects consent by one-time code, verifies identity through DigiLocker, works out the price and loan, shows which lenders are likely to accept, sends the case to one lender, reroutes after a rejection and settles the dealer's trade advance and commission.</p><p>It runs on a no-code platform, for Kia cars and four lenders. Lender terms, rates and limits are invented test values.</p>{links(BUILT[:3])}<a class="text-link" href="{a('built/index.html')}">All documents <span aria-hidden="true">↗</span></a></section>
+<section id="section-4" class="case-section"><span class="section-number">04</span><h2>What broke, and the fixes</h2><p>At the live demo, customers with no credit score and customers with no car to exchange hit dead ends. We fixed both, and the second change also saved a paid lookup per case. My own testing found a loan formula that ignored the exchange value, which is still open.</p>{links(TESTED)}</section>
+<section id="section-5" class="case-section"><span class="section-number">05</span><h2>The launch plan</h2><p>The plan chooses a dealership system as the place to plug in, lists the fields it must give us on each screen, says what it has to change, and sets out four phases with the assumptions marked. It went in after the deadline, and the retrospective says so.</p><ul class="links"><li><a href="{a('launch/index.html')}"><span>Production launch plan<small>Page and PDF</small></span>{ARROW}</a></li></ul></section>
+<section id="section-6" class="case-section"><span class="section-number">06</span><h2>Privacy and credits</h2><p>Mobile numbers, PAN, Aadhaar, emails, logins and other people's names are not in this record. The demo clip shows my own name and one-time codes on purpose and covers the rest.</p><p>Teammate: Aditya Sharan (<a href="https://github.com/aaDhut">github.com/aaDhut</a>), Team 6.</p><ul class="chips"><li>Consent and KYC design</li><li>Credit bureau and soft pull</li><li>No-code journey building</li><li>PRD writing</li><li>Sprint planning</li><li>Edge-case testing</li><li>Production launch planning</li></ul><a class="text-link" href="{a('about/index.html')}">What was removed, and how <span aria-hidden="true">↗</span></a></section></article>"""
     nxt = (f'<section class="next-project wrap"><div><p class="eyebrow">Up next</p><h2><a href="{a("launch/index.html")}">Production launch plan {ARROW}</a></h2><p>Where it plugs in and how it would launch</p></div>'
            f'<a class="text-link" href="{ME}/work.html">Back to all work <span aria-hidden="true">→</span></a></section>')
     h = hero(f"{ME}/work.html", "All work", "cohort / case study", "FinStack cohort", "What I learned, built and fixed in five days",
              "A fintech product management cohort in Bengaluru. We learned how lenders and no-code lending platforms work, then built, tested and fixed a loan journey for new-car buyers.",
-             f'<a class="button button-secondary" href="#section-2">What we built {ARROW}</a><a class="button button-secondary" href="https://github.com/cercit/finstack-cohort">Browse the files {ARROW}</a>')
+             f'<a class="button button-secondary" href="#section-3">What we built {ARROW}</a><a class="button button-secondary" href="https://github.com/cercit/finstack-cohort">Browse the files {ARROW}</a>')
     partner = (f'<div class="partner"><span>Cohort run by</span><img class="img-light" src="{a("assets/finstack-logo-light.svg")}" alt="FinStack" height="30">'
                f'<img class="img-dark" src="{a("assets/finstack-logo-dark.svg")}" alt="FinStack" height="30"></div>')
     h = h.replace("<h1>FinStack cohort</h1>", partner + "<h1>FinStack cohort</h1>", 1)
@@ -204,7 +208,7 @@ def main():
     clip = ROOT / "product/demo/dealerfinance-journey-masked.mp4"
     shutil.copy(clip, OUT / "assets/demo.mp4")
     subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", "98", "-i", str(clip), "-frames:v", "1", "-vf", "scale=1280:-1", "-q:v", "4", str(OUT / "assets/poster.jpg")], check=False)
-    for src in ("product/journey/wireframe-as-built.html", "launch/production-launch-plan.pdf"):
+    for src in ("product/journey/wireframe-as-built.html", "launch/production-launch-plan.pdf", "selection/bhim-vs-phonepe-teardown.pdf"):
         (OUT / MAP[src]).parent.mkdir(parents=True, exist_ok=True)
         shutil.copy(ROOT / src, OUT / MAP[src])
     for n, s, d in LEARNED:
@@ -214,6 +218,7 @@ def main():
             doc_page(s, "Built", d)
     for n, s, d in TESTED:
         doc_page(s, "Tested", d)
+    doc_page("selection/bhim-vs-phonepe-teardown.md", "Selection", "The product teardown and three-year roadmaps I submitted to FinStack before the cohort.")
     doc_page("launch/production-launch-plan.md", "Launch", "Where it plugs in, the fields it needs, what it has to change, and the phases.")
     list_page("learned/index.html", "Learned", "What I learned", "Five days on how lenders work and the tools behind modern lending products.", [(n, s, d) for n, s, d in LEARNED])
     list_page("built/index.html", "Built", "What we built", "DealerFinance: a loan journey for new-car buyers at a dealership, built on a no-code platform.", [(n, s, d) for n, s, d in BUILT])
